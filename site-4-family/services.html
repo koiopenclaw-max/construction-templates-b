@@ -6,341 +6,158 @@
     <title>Услуги - Фамилия Строй</title>
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Open Sans', sans-serif;
-            color: #333;
-            background: #FFFFFF;
-        }
-        h1, h2, h3, h4 {
-            font-family: 'Lora', serif;
-            color: #8B0000;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: #333; background: #FFFFFF; }
+        h1, h2, h3, h4 { font-family: 'Lora', serif; color: #8B0000; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes slideUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
         .fade-in { animation: fadeIn 1s ease forwards; }
         .slide-up { animation: slideUp 0.8s ease forwards; }
         nav {
-            background: #8B0000;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(139,0,0,0.3);
+            background: #8B0000; position: sticky; top: 0;
+            z-index: 100; box-shadow: 0 2px 10px rgba(139,0,0,0.3);
         }
         .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
+            max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between;
+            align-items: center; padding: 0 20px;
         }
         .logo {
-            color: #FFF;
-            font-family: 'Lora', serif;
-            font-size: 1.4rem;
-            font-weight: 700;
-            padding: 15px 0;
+            color: #FFF; font-family: 'Lora', serif;
+            font-size: 1.4rem; font-weight: 700; padding: 15px 0;
         }
         .logo span { color: #CD5C5C; }
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 5px;
-        }
+        nav ul { list-style: none; display: flex; gap: 5px; }
         nav ul li a {
-            color: #FFF;
-            text-decoration: none;
-            padding: 20px 15px;
-            display: block;
-            font-size: 0.9rem;
-            transition: background 0.3s;
+            color: #FFF; text-decoration: none; padding: 20px 15px;
+            display: block; font-size: 0.9rem; transition: background 0.3s;
         }
-        nav ul li a:hover,
-        nav ul li a.active {
-            background: #B22222;
-        }
+        nav ul li a:hover, nav ul li a.active { background: #B22222; }
         .page-hero {
-            position: relative;
-            height: 45vh;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: relative; height: 45vh; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
         .page-hero img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            position: absolute; width: 100%; height: 100%; object-fit: cover;
         }
         .page-hero-overlay {
-            position: absolute;
-            inset: 0;
+            position: absolute; inset: 0;
             background: linear-gradient(135deg, rgba(139,0,0,0.8), rgba(178,34,34,0.6));
         }
         .page-hero-content {
-            position: relative;
-            z-index: 2;
-            color: #FFF;
-            text-align: center;
+            position: relative; z-index: 2; color: #FFF; text-align: center;
         }
-        .page-hero-content h1 {
-            font-size: 2.8rem;
-            color: #FFF;
-        }
-        .page-hero-content p {
-            font-size: 1.1rem;
-            margin-top: 10px;
-            color: #CD5C5C;
-        }
+        .page-hero-content h1 { font-size: 2.8rem; color: #FFF; }
+        .page-hero-content p { font-size: 1.1rem; margin-top: 10px; color: #CD5C5C; }
         section { padding: 80px 20px; }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .section-title h2 {
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.2rem; margin-bottom: 10px; }
         .section-title .line {
-            width: 60px;
-            height: 3px;
-            background: #B22222;
-            margin: 15px auto;
+            width: 60px; height: 3px; background: #B22222; margin: 15px auto;
         }
         .section-title p { color: #666; }
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
         }
         .service-card {
-            background: #FFF;
-            border-radius: 12px;
-            overflow: hidden;
+            background: #FFF; border-radius: 12px; overflow: hidden;
             box-shadow: 0 5px 25px rgba(139,0,0,0.08);
-            transition: all 0.4s;
-            border: 1px solid #f0e0e0;
+            transition: all 0.4s; border: 1px solid #f0e0e0;
         }
         .service-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(139,0,0,0.18);
         }
-        .service-img {
-            height: 200px;
-            overflow: hidden;
-        }
+        .service-img { height: 200px; overflow: hidden; }
         .service-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 100%; height: 100%; object-fit: cover;
             transition: transform 0.5s;
         }
-        .service-card:hover .service-img img {
-            transform: scale(1.08);
-        }
-        .service-body {
-            padding: 25px;
-        }
+        .service-card:hover .service-img img { transform: scale(1.08); }
+        .service-body { padding: 25px; }
         .service-body .icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            display: inline-block;
+            font-size: 2rem; margin-bottom: 10px; display: inline-block;
         }
-        .service-body h3 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
+        .service-body h3 { font-size: 1.25rem; margin-bottom: 10px; }
         .service-body p {
-            color: #666;
-            font-size: 0.92rem;
-            line-height: 1.7;
-            margin-bottom: 15px;
+            color: #666; font-size: 0.92rem; line-height: 1.7; margin-bottom: 15px;
         }
-        .service-features {
-            list-style: none;
-        }
+        .service-features { list-style: none; }
         .service-features li {
-            padding: 5px 0;
-            color: #555;
-            font-size: 0.88rem;
-            padding-left: 20px;
-            position: relative;
+            padding: 5px 0; color: #555; font-size: 0.88rem;
+            padding-left: 20px; position: relative;
         }
         .service-features li::before {
-            content: "\2713";
-            position: absolute;
-            left: 0;
-            color: #B22222;
-            font-weight: 700;
-        }
-        .cta-section {
-            background: #8B0000;
-            text-align: center;
-            color: #FFF;
-            padding: 60px 20px;
-        }
-        .cta-section h2 {
-            color: #FFF;
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        .cta-section p {
-            color: #CD5C5C;
-            margin-bottom: 25px;
-            font-size: 1.05rem;
-        }
-        .btn {
-            display: inline-block;
-            padding: 14px 35px;
-            background: #FFF;
-            color: #8B0000;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        .btn:hover {
-            background: #CD5C5C;
-            color: #FFF;
-            transform: translateY(-2px);
-        }
-        .process { background: #FFF5F5; }
-        .process-steps {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            text-align: center;
-        }
-        .step {
-            padding: 25px;
-        }
-        .step-num {
-            width: 50px;
-            height: 50px;
-            background: #B22222;
-            color: #FFF;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 15px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            font-family: 'Lora', serif;
-        }
-        .step h3 {
-            font-size: 1.1rem;
-            margin-bottom: 8px;
-        }
-        .step p {
-            color: #666;
-            font-size: 0.88rem;
-            line-height: 1.6;
+            content: "\2713"; position: absolute; left: 0;
+            color: #B22222; font-weight: 700;
         }
         .guarantee {
-            background: #FFF;
+            background: #FFF5F5; padding: 60px 20px; text-align: center;
         }
+        .guarantee h2 { font-size: 2rem; margin-bottom: 10px; }
         .guarantee-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-            text-align: center;
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 30px; max-width: 900px; margin: 30px auto 0;
         }
-        .guarantee-item {
-            padding: 30px;
-            border: 2px solid #f0e0e0;
-            border-radius: 10px;
-            transition: all 0.3s;
+        .guarantee-item .icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .guarantee-item h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .guarantee-item p { color: #666; font-size: 0.9rem; line-height: 1.6; }
+        .process-steps {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 30px; text-align: center;
         }
-        .guarantee-item:hover {
-            border-color: #B22222;
-            transform: translateY(-5px);
+        .step { padding: 25px; }
+        .step-num {
+            width: 50px; height: 50px; background: #B22222; color: #FFF;
+            border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; margin: 0 auto 15px;
+            font-size: 1.3rem; font-weight: 700; font-family: 'Lora', serif;
         }
-        .guarantee-item .g-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
+        .step h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .step p { color: #666; font-size: 0.88rem; line-height: 1.6; }
+        .cta-section {
+            background: #8B0000; text-align: center;
+            color: #FFF; padding: 60px 20px;
         }
-        .guarantee-item h3 {
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+        .cta-section h2 { color: #FFF; font-size: 2rem; margin-bottom: 15px; }
+        .cta-section p { color: #CD5C5C; margin-bottom: 25px; font-size: 1.05rem; }
+        .btn {
+            display: inline-block; padding: 14px 35px; background: #FFF;
+            color: #8B0000; text-decoration: none; border-radius: 5px;
+            font-weight: 600; transition: all 0.3s;
         }
-        .guarantee-item p {
-            color: #666;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-        footer {
-            background: #8B0000;
-            color: #FFF;
-            padding: 40px 20px;
-        }
+        .btn:hover { background: #CD5C5C; color: #FFF; transform: translateY(-2px); }
+        footer { background: #8B0000; color: #FFF; padding: 40px 20px; }
         footer .footer-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
         }
-        footer h4 {
-            color: #FFF;
-            margin-bottom: 15px;
-        }
+        footer h4 { color: #FFF; margin-bottom: 15px; }
         footer p, footer a {
-            color: #CD5C5C;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            text-decoration: none;
+            color: #CD5C5C; font-size: 0.9rem;
+            line-height: 1.8; text-decoration: none;
         }
         footer a:hover { color: #FFF; }
         .footer-bottom {
-            text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
+            text-align: center; margin-top: 30px; padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.2);
-            color: #CD5C5C;
-            font-size: 0.85rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
+            color: #CD5C5C; font-size: 0.85rem;
+            max-width: 1200px; margin-left: auto; margin-right: auto;
         }
         .hamburger {
-            display: none;
-            color: #FFF;
-            font-size: 1.5rem;
-            cursor: pointer;
-            background: none;
-            border: none;
+            display: none; color: #FFF; font-size: 1.5rem;
+            cursor: pointer; background: none; border: none;
         }
         @media (max-width: 768px) {
             .hamburger { display: block; }
             nav ul {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #8B0000;
+                display: none; flex-direction: column;
+                position: absolute; top: 100%;
+                left: 0; right: 0; background: #8B0000;
             }
             nav ul.open { display: flex; }
             .page-hero-content h1 { font-size: 2rem; }
@@ -450,7 +267,7 @@
                     <div class="service-body">
                         <div class="icon">&#127959;</div>
                         <h3>Покривни ремонти</h3>
-                        <p>Ремонт и подмяна на покриви с гаранция за качество. Хидроизолация и нови покривни конструкции.</p>
+                        <p>Ремонт и подмяна на покриви с гаранция. Хидроизолация, топлоизолация и нови конструкции.</p>
                         <ul class="service-features">
                             <li>Ремонт на течове</li>
                             <li>Топло- и хидроизолация</li>
@@ -462,7 +279,29 @@
         </div>
     </section>
 
-    <section class="process">
+    <section class="guarantee">
+        <h2>Защо да изберете нас</h2>
+        <div style="width:60px;height:3px;background:#B22222;margin:15px auto;"></div>
+        <div class="guarantee-grid">
+            <div class="guarantee-item">
+                <div class="icon">&#128170;</div>
+                <h3>35+ години опит</h3>
+                <p>Три поколения майстори с доказан опит в строителството на семейни домове.</p>
+            </div>
+            <div class="guarantee-item">
+                <div class="icon">&#128176;</div>
+                <h3>Честни цени</h3>
+                <p>Без скрити разходи. Детайлна оферта преди започване на всеки проект.</p>
+            </div>
+            <div class="guarantee-item">
+                <div class="icon">&#128736;</div>
+                <h3>Пълна гаранция</h3>
+                <p>Предоставяме гаранция до 10 години на всички строителни дейности.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
         <div class="container">
             <div class="section-title">
                 <h2>Нашият процес</h2>
@@ -472,48 +311,22 @@
                 <div class="step">
                     <div class="step-num">1</div>
                     <h3>Консултация</h3>
-                    <p>Безплатна среща, на която обсъждаме вашите мечти и нужди за идеалния дом.</p>
+                    <p>Безплатна среща, на която обсъждаме вашите мечти и нужди.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">2</div>
                     <h3>Проектиране</h3>
-                    <p>Изготвяме индивидуален проект и детайлна оферта с точни срокове.</p>
+                    <p>Изготвяме индивидуален проект и детайлна оферта.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">3</div>
                     <h3>Строителство</h3>
-                    <p>Изпълняваме проекта с грижа, прецизност и прозрачна комуникация.</p>
+                    <p>Изпълняваме проекта с грижа и прозрачна комуникация.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">4</div>
                     <h3>Предаване</h3>
-                    <p>Предаваме готовия обект с пълна гаранция и цялата документация.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="guarantee">
-        <div class="container">
-            <div class="section-title">
-                <h2>Нашите гаранции</h2>
-                <div class="line"></div>
-            </div>
-            <div class="guarantee-grid">
-                <div class="guarantee-item slide-up">
-                    <div class="g-icon">&#128176;</div>
-                    <h3>Фиксирана цена</h3>
-                    <p>Без скрити разходи и неочаквани допълнения. Цената в договора е окончателна.</p>
-                </div>
-                <div class="guarantee-item slide-up" style="animation-delay:0.1s">
-                    <div class="g-icon">&#128197;</div>
-                    <h3>Точни срокове</h3>
-                    <p>Спазваме всеки краен срок. При забавяне от наша страна - компенсация за клиента.</p>
-                </div>
-                <div class="guarantee-item slide-up" style="animation-delay:0.2s">
-                    <div class="g-icon">&#128736;</div>
-                    <h3>10 години гаранция</h3>
-                    <p>Предоставяме 10-годишна гаранция за конструкцията и 5 години за довършителни работи.</p>
+                    <p>Предаваме готовия обект с пълна гаранция и документация.</p>
                 </div>
             </div>
         </div>
@@ -529,7 +342,7 @@
         <div class="footer-inner">
             <div>
                 <h4>Фамилия Строй</h4>
-                <p>Семейна строителна компания с традиции от 1988 година.</p>
+                <p>Семейна строителна компания с традиции от 1988 година. Строим домове с любов.</p>
             </div>
             <div>
                 <h4>Навигация</h4>
