@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио — Минимал Арх</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; color: #1a1a1a; background: #FFFFFF; font-weight: 300; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 1s ease forwards; }
+        .fade-in-d1 { animation-delay: 0.1s; }
+        .fade-in-d2 { animation-delay: 0.2s; }
+        .fade-in-d3 { animation-delay: 0.3s; }
+        .fade-in-d4 { animation-delay: 0.4s; }
+        .fade-in-d5 { animation-delay: 0.5s; }
+        .fade-in-d6 { animation-delay: 0.6s; }
+        .fade-in-d7 { animation-delay: 0.7s; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes lineGrow { from { width: 0; } to { width: 60px; } }
+        @keyframes lineExpand { from { width: 30px; } to { width: 50px; } }
+        .thin-line { width: 60px; height: 1px; background: #000; margin: 30px auto; animation: lineGrow 1s ease forwards; }
+
+        /* Nav */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 60px; border-bottom: 1px solid #eee;
+        }
+        .logo { font-family: 'Bodoni Moda', serif; font-size: 1.4rem; letter-spacing: 3px; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+            position: relative; transition: opacity 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: #000; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { opacity: 0.5; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 24px; height: 1px; background: #000; }
+
+        /* Header */
+        .page-header { padding: 120px 60px 80px; text-align: center; }
+        .page-header h1 { font-size: 3rem; letter-spacing: 4px; }
+        .page-header p { color: #666; margin-top: 16px; font-size: 0.95rem; }
+
+        /* Filter */
+        .filter {
+            display: flex; justify-content: center; gap: 30px;
+            padding: 0 60px 60px; flex-wrap: wrap;
+        }
+        .filter span {
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            color: #999; cursor: pointer; padding-bottom: 4px;
+            border-bottom: 1px solid transparent; transition: all 0.3s;
+        }
+        .filter span:hover, .filter span.active { color: #000; border-bottom-color: #000; }
+
+        /* Portfolio Grid */
+        .portfolio { padding: 0 60px 120px; max-width: 1300px; margin: 0 auto; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .project { position: relative; overflow: hidden; aspect-ratio: 4/3; cursor: pointer; }
+        .project img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.7s ease, filter 0.7s ease;
+        }
+        .project:hover img { transform: scale(1.05); filter: brightness(0.6); }
+        .project-info {
+            position: absolute; inset: 0; display: flex; flex-direction: column;
+            justify-content: flex-end; padding: 40px; color: #fff;
+            opacity: 0; transform: translateY(10px); transition: all 0.5s ease;
+        }
+        .project:hover .project-info { opacity: 1; transform: translateY(0); }
+        .project-info h3 { font-size: 1.6rem; letter-spacing: 2px; margin-bottom: 6px; }
+        .project-info .proj-line {
+            width: 30px; height: 1px; background: #fff; margin: 12px 0;
+            transition: width 0.4s ease 0.2s;
+        }
+        .project:hover .proj-line { width: 50px; }
+        .project-info span {
+            font-size: 0.75rem; letter-spacing: 2px;
+            color: rgba(255,255,255,0.7); text-transform: uppercase;
+        }
+        .project-info p {
+            font-size: 0.85rem; color: rgba(255,255,255,0.8);
+            margin-top: 8px; line-height: 1.6;
+        }
+
+        /* Stats */
+        .stats {
+            padding: 100px 60px; background: #FAFAFA;
+            display: flex; justify-content: center; gap: 100px; text-align: center;
+        }
+        .stat h3 { font-size: 3rem; letter-spacing: 2px; }
+        .stat span { font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; color: #999; }
+        .stat .stat-line { width: 30px; height: 1px; background: #ddd; margin: 14px auto; }
+
+        /* CTA */
+        .cta { padding: 120px 60px; text-align: center; }
+        .cta h2 { font-size: 2rem; letter-spacing: 3px; margin-bottom: 16px; }
+        .cta p { color: #666; margin-bottom: 40px; font-size: 0.95rem; }
+        .btn {
+            display: inline-block; padding: 16px 50px; border: 1px solid #000;
+            font-family: 'Raleway', sans-serif; font-size: 0.8rem;
+            letter-spacing: 3px; text-transform: uppercase; transition: all 0.4s ease;
+        }
+        .btn:hover { background: #000; color: #fff; }
+
+        /* Footer */
+        footer { padding: 60px; text-align: center; border-top: 1px solid #eee; }
+        footer .foot-logo {
+            font-family: 'Bodoni Moda', serif; font-size: 1.2rem;
+            letter-spacing: 3px; margin-bottom: 20px;
+        }
+        footer p { font-size: 0.75rem; color: #999; letter-spacing: 2px; }
+        footer .foot-links { margin-bottom: 20px; display: flex; justify-content: center; gap: 30px; }
+        footer .foot-links a { font-size: 0.75rem; color: #666; letter-spacing: 1px; transition: color 0.3s; }
+        footer .foot-links a:hover { color: #000; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .nav-links {
+                display: none; position: absolute; top: 70px; left: 0; right: 0;
+                background: #fff; flex-direction: column; padding: 30px; gap: 20px;
+                border-bottom: 1px solid #eee; z-index: 100;
+            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .page-header { padding: 80px 30px 50px; }
+            .page-header h1 { font-size: 2rem; }
+            .filter { padding: 0 30px 40px; gap: 16px; }
+            .portfolio { padding: 0 30px 60px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; gap: 40px; padding: 60px 30px; }
+            .cta { padding: 80px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Минимал Арх</a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header fade-in">
+        <h1>Портфолио</h1>
+        <div class="thin-line"></div>
+        <p>Подбрани проекти, които дефинират нашата визия</p>
+    </div>
+
+    <div class="filter fade-in">
+        <span class="active">Всички</span>
+        <span>Жилищни</span>
+        <span>Обществени</span>
+        <span>Интериори</span>
+        <span>Реконструкции</span>
+    </div>
+
+    <section class="portfolio">
+        <div class="portfolio-grid">
+            <div class="project fade-in">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800" alt="Резиденция Бяла">
+                <div class="project-info">
+                    <h3>Резиденция Бяла</h3>
+                    <div class="proj-line"></div>
+                    <span>София / 2024</span>
+                    <p>Частна резиденция с изцяло бял екстериор и открити пространства.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d1">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800" alt="Лофт Център">
+                <div class="project-info">
+                    <h3>Лофт Център</h3>
+                    <div class="proj-line"></div>
+                    <span>Пловдив / 2023</span>
+                    <p>Преустройство на индустриално пространство в модерен лофт.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d2">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Вила Минимал">
+                <div class="project-info">
+                    <h3>Вила Минимал</h3>
+                    <div class="proj-line"></div>
+                    <span>Варна / 2024</span>
+                    <p>Крайбрежна вила с панорамни прозорци и минималистичен дизайн.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d3">
+                <img src="https://images.unsplash.com/photo-1600566753051-f0b89df2dd90?w=800" alt="Галерия Тишина">
+                <div class="project-info">
+                    <h3>Галерия Тишина</h3>
+                    <div class="proj-line"></div>
+                    <span>София / 2023</span>
+                    <p>Изложбено пространство с бял интериор и естествено осветление.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d4">
+                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800" alt="Къща Бетон">
+                <div class="project-info">
+                    <h3>Къща Бетон</h3>
+                    <div class="proj-line"></div>
+                    <span>Бургас / 2022</span>
+                    <p>Семейна къща с видим бетон и строга геометрия.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d5">
+                <img src="https://images.unsplash.com/photo-1431576901776-e539bd916ba2?w=800" alt="Офис Линия">
+                <div class="project-info">
+                    <h3>Офис Линия</h3>
+                    <div class="proj-line"></div>
+                    <span>София / 2022</span>
+                    <p>Корпоративен офис с отворен план и минимално обзавеждане.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d6">
+                <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=800" alt="Апартамент Покой">
+                <div class="project-info">
+                    <h3>Апартамент Покой</h3>
+                    <div class="proj-line"></div>
+                    <span>Пловдив / 2021</span>
+                    <p>Градски апартамент с медитативна атмосфера и неутрална палитра.</p>
+                </div>
+            </div>
+            <div class="project fade-in fade-in-d7">
+                <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800" alt="Хотел Есенция">
+                <div class="project-info">
+                    <h3>Хотел Есенция</h3>
+                    <div class="proj-line"></div>
+                    <span>Банско / 2021</span>
+                    <p>Бутиков хотел с минималистичен интериор и планинска панорама.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats fade-in">
+        <div class="stat">
+            <h3>120+</h3>
+            <div class="stat-line"></div>
+            <span>Завършени проекта</span>
+        </div>
+        <div class="stat">
+            <h3>15</h3>
+            <div class="stat-line"></div>
+            <span>Години опит</span>
+        </div>
+        <div class="stat">
+            <h3>8</h3>
+            <div class="stat-line"></div>
+            <span>Награди</span>
+        </div>
+        <div class="stat">
+            <h3>100%</h3>
+            <div class="stat-line"></div>
+            <span>Отдаденост</span>
+        </div>
+    </section>
+
+    <section class="cta fade-in">
+        <h2>Имате проект?</h2>
+        <p>Нека го превърнем в реалност заедно</p>
+        <a href="contact.html" class="btn">Свържете се с нас</a>
+    </section>
+
+    <footer>
+        <div class="foot-logo">Минимал Арх</div>
+        <div class="foot-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Минимал Арх. Всички права запазени.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

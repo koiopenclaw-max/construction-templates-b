@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио — Скайлайн Строй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #1a1a2e; color: #e0e0e0; }
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(22, 33, 62, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #ff6b35, #d946ef, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #ccc; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #ff6b35; }
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        /* Page Header */
+        .page-header { padding: 8rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(217,70,239,0.1)); }
+        .page-header h1 { font-size: 2.8rem; color: #fff; margin-bottom: 0.5rem; animation: fadeInUp 0.8s ease; }
+        .page-header p { color: #999; font-size: 1.1rem; animation: fadeInUp 0.8s ease 0.2s both; }
+        /* Filters */
+        .filters { max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 1rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.6rem 1.5rem; border-radius: 50px; border: 1px solid rgba(255,107,53,0.3); background: transparent; color: #ccc; font-family: 'Inter', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: linear-gradient(135deg, #ff6b35, #d946ef); color: #fff; border-color: transparent; }
+        /* Portfolio Grid */
+        .portfolio { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .project-card { border-radius: 16px; overflow: hidden; background: #16213e; border: 1px solid rgba(255,107,53,0.1); transition: transform 0.3s, box-shadow 0.3s; animation: fadeInUp 0.8s ease both; }
+        .project-card:nth-child(2) { animation-delay: 0.08s; }
+        .project-card:nth-child(3) { animation-delay: 0.16s; }
+        .project-card:nth-child(4) { animation-delay: 0.24s; }
+        .project-card:nth-child(5) { animation-delay: 0.32s; }
+        .project-card:nth-child(6) { animation-delay: 0.40s; }
+        .project-card:nth-child(7) { animation-delay: 0.48s; }
+        .project-card:nth-child(8) { animation-delay: 0.56s; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 20px 50px rgba(255,107,53,0.15); }
+        .project-img { position: relative; overflow: hidden; height: 220px; }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .project-card:hover .project-img img { transform: scale(1.08); }
+        .project-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(22,33,62,0.9), transparent); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 1.5rem; }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-overlay span { color: #ff6b35; font-size: 0.85rem; font-weight: 600; }
+        .project-info { padding: 1.5rem; }
+        .project-info h3 { color: #fff; font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .project-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .project-type { color: #ff6b35; font-size: 0.8rem; font-weight: 500; }
+        .project-year { color: #777; font-size: 0.8rem; }
+        .project-info p { color: #aaa; font-size: 0.85rem; line-height: 1.5; }
+        /* Stats Bar */
+        .stats-bar { background: linear-gradient(135deg, #ff6b35, #d946ef); padding: 3rem 2rem; margin-top: 3rem; }
+        .stats-grid { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; text-align: center; }
+        .stat-number { font-family: 'Syne', sans-serif; font-size: 2.2rem; font-weight: 800; color: #fff; }
+        .stat-label { color: rgba(255,255,255,0.85); font-size: 0.9rem; }
+        /* Footer */
+        footer { background: #0d1117; padding: 3rem 2rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: left; margin-bottom: 2rem; }
+        .footer-col h4 { color: #ff6b35; margin-bottom: 1rem; }
+        .footer-col p, .footer-col a { color: #888; font-size: 0.9rem; line-height: 1.8; display: block; }
+        .footer-col a:hover { color: #ff6b35; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; color: #666; font-size: 0.85rem; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 900px) { .portfolio-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #16213e; padding: 1rem 2rem; }
+            .nav-links.open { display: flex; }
+            .menu-toggle { display: block; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 520px) { .portfolio-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">СКАЙЛАЙН СТРОЙ</a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html" class="active">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-header">
+        <h1>Портфолио</h1>
+        <p>Избрани проекти от нашата дейност</p>
+    </section>
+
+    <div class="filters">
+        <button class="filter-btn active" onclick="filterProjects('all', this)">Всички</button>
+        <button class="filter-btn" onclick="filterProjects('residential', this)">Жилищни</button>
+        <button class="filter-btn" onclick="filterProjects('commercial', this)">Търговски</button>
+        <button class="filter-btn" onclick="filterProjects('renovation', this)">Ремонти</button>
+    </div>
+
+    <section class="portfolio">
+        <div class="portfolio-grid">
+            <div class="project-card" data-type="residential">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800" alt="Скайлайн Резиденс">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Скайлайн Резиденс</h3>
+                    <div class="project-meta"><span class="project-type">Жилищен комплекс</span><span class="project-year">2023</span></div>
+                    <p>Луксозен жилищен комплекс със 120 апартамента в кв. Лозенец, София.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="commercial">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800" alt="Бизнес Парк Витоша">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Бизнес Парк Витоша</h3>
+                    <div class="project-meta"><span class="project-type">Търговски обект</span><span class="project-year">2022</span></div>
+                    <p>Съвременен бизнес парк с офис площи клас А и търговски зони.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="residential">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1590274853856-f22d4d001880?w=800" alt="Гранд Тауър">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Гранд Тауър</h3>
+                    <div class="project-meta"><span class="project-type">Жилищна сграда</span><span class="project-year">2024</span></div>
+                    <p>18-етажна жилищна кула с панорамни гледки и модерен дизайн.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="renovation">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800" alt="Хотел Централ">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Хотел Централ — реновация</h3>
+                    <div class="project-meta"><span class="project-type">Ремонт</span><span class="project-year">2023</span></div>
+                    <p>Цялостна реконструкция на исторически хотел в центъра на София.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="commercial">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800" alt="Мол Скайлайн">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Мол Скайлайн Плаза</h3>
+                    <div class="project-meta"><span class="project-type">Търговски център</span><span class="project-year">2021</span></div>
+                    <p>Търговски център с 45 000 кв.м. площ и подземен паркинг за 800 коли.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="residential">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1481026469463-66327c86e544?w=800" alt="Парк Вю">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Парк Вю Апартаменти</h3>
+                    <div class="project-meta"><span class="project-type">Жилищен комплекс</span><span class="project-year">2020</span></div>
+                    <p>Затворен комплекс с 80 апартамента, зелени площи и детска площадка.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="renovation">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?w=800" alt="Офис Център Сердика">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Офис Център Сердика</h3>
+                    <div class="project-meta"><span class="project-type">Реконструкция</span><span class="project-year">2022</span></div>
+                    <p>Модернизация на 6-етажна офис сграда с ново фасадно остъкляване.</p>
+                </div>
+            </div>
+            <div class="project-card" data-type="commercial">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Логистичен Хъб">
+                    <div class="project-overlay"><span>Виж детайли</span></div>
+                </div>
+                <div class="project-info">
+                    <h3>Логистичен Хъб Юг</h3>
+                    <div class="project-meta"><span class="project-type">Индустриален обект</span><span class="project-year">2024</span></div>
+                    <p>Логистичен център с 15 000 кв.м. складова площ и офис част.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="stats-grid">
+            <div><div class="stat-number">200+</div><div class="stat-label">Завършени проекта</div></div>
+            <div><div class="stat-number">350 000</div><div class="stat-label">кв.м. изградена площ</div></div>
+            <div><div class="stat-number">98%</div><div class="stat-label">Доволни клиенти</div></div>
+            <div><div class="stat-number">15+</div><div class="stat-label">Години опит</div></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Скайлайн Строй</h4>
+                <p>Водеща строителна компания в София, специализирана в градско строителство и модерни жилищни комплекси.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <a href="index.html">Начало</a><a href="about.html">За нас</a><a href="services.html">Услуги</a><a href="portfolio.html">Портфолио</a><a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакти</h4>
+                <p>бул. Витоша 120, София 1000</p><p>+359 2 987 6543</p><p>info@skylinestroy.bg</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Скайлайн Строй. Всички права запазени.</div>
+    </footer>
+
+    <script>
+        function filterProjects(type, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.project-card').forEach(card => {
+                if (type === 'all' || card.dataset.type === type) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

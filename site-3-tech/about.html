@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>За нас — ТехноБилд</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        a {
+            text-decoration: none;
+            color: #e0e0e0;
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,240,255,0.15);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #00f0ff;
+            text-shadow: 0 0 20px rgba(0,240,255,0.5);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.95rem;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        .nav-links a:hover {
+            color: #00f0ff;
+            text-shadow: 0 0 10px rgba(0,240,255,0.5);
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background: #00f0ff;
+        }
+        .page-hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            border-bottom: 1px solid rgba(0,240,255,0.1);
+        }
+        .page-hero h1 {
+            font-size: 2.8rem;
+            color: #fff;
+        }
+        .page-hero h1 span {
+            color: #00f0ff;
+            text-shadow: 0 0 25px rgba(0,240,255,0.5);
+        }
+        .page-hero p {
+            color: #94a3b8;
+            margin-top: 1rem;
+            font-size: 1.1rem;
+        }
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        .section-title span {
+            color: #00f0ff;
+            text-shadow: 0 0 15px rgba(0,240,255,0.4);
+        }
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .story-grid img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid rgba(0,240,255,0.15);
+        }
+        .story-text p {
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+        .philosophy {
+            background: #111827;
+            border: 1px solid rgba(0,240,255,0.1);
+            border-radius: 8px;
+            padding: 3rem;
+            margin-top: 2rem;
+            animation: fadeUp 0.8s ease forwards;
+        }
+        .philosophy h3 {
+            color: #22d3ee;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .philosophy p {
+            color: #94a3b8;
+            line-height: 1.8;
+        }
+        .timeline {
+            margin-top: 3rem;
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(0,240,255,0.2);
+        }
+        .timeline-item {
+            margin-bottom: 2rem;
+            position: relative;
+            animation: fadeUp 0.6s ease forwards;
+            opacity: 0;
+        }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.6s; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.35rem;
+            top: 0.3rem;
+            width: 12px;
+            height: 12px;
+            background: #00f0ff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,240,255,0.5);
+        }
+        .timeline-item h4 {
+            color: #22d3ee;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+        .timeline-item p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .team-card {
+            background: #111827;
+            border: 1px solid rgba(0,240,255,0.1);
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s;
+            animation: fadeUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        .team-card:nth-child(2) { animation-delay: 0.15s; }
+        .team-card:nth-child(3) { animation-delay: 0.3s; }
+        .team-card:nth-child(4) { animation-delay: 0.45s; }
+        .team-card:hover {
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0,240,255,0.15);
+            transform: translateY(-5px);
+        }
+        .team-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #06b6d4, #1a1a2e);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            border: 2px solid rgba(0,240,255,0.3);
+        }
+        .team-card h3 {
+            color: #22d3ee;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+        .team-card .role {
+            color: #00f0ff;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+        }
+        .team-card p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .cert-item {
+            background: #111827;
+            border: 1px solid rgba(0,240,255,0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .cert-item:hover {
+            border-color: #06b6d4;
+            box-shadow: 0 0 20px rgba(0,240,255,0.1);
+        }
+        .cert-item .icon {
+            font-size: 2rem;
+            margin-bottom: 0.7rem;
+        }
+        .cert-item h4 {
+            color: #22d3ee;
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+        }
+        .cert-item p {
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        footer {
+            background: #111827;
+            border-top: 1px solid rgba(0,240,255,0.15);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #00f0ff;
+        }
+        footer p {
+            color: #64748b;
+            margin-top: 0.7rem;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        .footer-links a {
+            color: #64748b;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: #00f0ff;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10,10,10,0.98);
+                padding: 1rem 2rem;
+                gap: 1rem;
+            }
+            .nav-links.active { display: flex; }
+            .story-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ТехноБилд</a>
+            <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="portfolio.html">Портфолио</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <h1>За <span>ТехноБилд</span></h1>
+        <p>Пионери в интелигентното строителство от 2000 година</p>
+    </div>
+
+    <section>
+        <div class="story-grid">
+            <div class="story-text">
+                <h2 class="section-title">Нашата <span>история</span></h2>
+                <p>ТехноБилд е основана през 2000 г. с амбицията да промени строителния сектор в България чрез внедряване на най-съвременни технологии. От самото начало нашата мисия е да създаваме сгради, които не просто стоят — а мислят.</p>
+                <p>С над 25 години опит, ние сме лидери в BIM проектирането, IoT интеграцията и зеленото строителство. Всеки наш проект съчетава инженерно съвършенство с дигитална иновация.</p>
+                <p>Днес ТехноБилд е синоним на бъдещето на строителството в Югоизточна Европа.</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800" alt="Съвременен офис">
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <h4>2000 — Основаване</h4>
+                <p>Стартираме като първата строителна компания в България с фокус върху дигитални технологии.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>2010 — BIM пионери</h4>
+                <p>Внедряваме BIM проектиране като стандарт за всички наши проекти, години преди конкуренцията.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>2018 — IoT интеграция</h4>
+                <p>Създаваме отдел за IoT решения и смарт сградна автоматизация.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>2024 — 100+ смарт проекта</h4>
+                <p>Достигаме забележителен етап — над 100 завършени проекта с интелигентни системи.</p>
+            </div>
+        </div>
+
+        <div class="philosophy">
+            <h3>Философия на иновацията</h3>
+            <p>Вярваме, че всяка сграда трябва да бъде жив организъм — адаптивна, ефективна и свързана. Нашият подход интегрира изкуствен интелект, сензорни мрежи и устойчиви материали, за да създаваме пространства, които се учат и подобряват с времето. Иновацията не е допълнение — тя е в ДНК-то на всеки наш проект.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Нашият <span>екип</span></h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">&#128104;&#8205;&#128188;</div>
+                <h3>инж. Георги Стоянов</h3>
+                <div class="role">Главен изпълнителен директор</div>
+                <p>25+ години в строителството. Визионер в смарт технологиите и устойчивото развитие.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">&#128105;&#8205;&#128187;</div>
+                <h3>д-р Мария Петрова</h3>
+                <div class="role">Директор BIM и дигитализация</div>
+                <p>Специалист по Building Information Modeling с международен опит в Германия и Холандия.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">&#128104;&#8205;&#128295;</div>
+                <h3>инж. Александър Димов</h3>
+                <div class="role">Ръководител IoT интеграция</div>
+                <p>Експерт по умни системи, автоматизация и свързани сградни технологии.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">&#128105;&#8205;&#127891;</div>
+                <h3>арх. Елена Василева</h3>
+                <div class="role">Главен архитект</div>
+                <p>Носител на награда за устойчива архитектура. Специализира в енергийно ефективен дизайн.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2 class="section-title">Сертификати и <span>технологии</span></h2>
+        <div class="certs-grid">
+            <div class="cert-item">
+                <div class="icon">&#127942;</div>
+                <h4>ISO 9001:2015</h4>
+                <p>Управление на качеството</p>
+            </div>
+            <div class="cert-item">
+                <div class="icon">&#127811;</div>
+                <h4>LEED Platinum</h4>
+                <p>Зелено строителство</p>
+            </div>
+            <div class="cert-item">
+                <div class="icon">&#128187;</div>
+                <h4>Autodesk BIM</h4>
+                <p>Сертифициран партньор</p>
+            </div>
+            <div class="cert-item">
+                <div class="icon">&#128274;</div>
+                <h4>KNX Partner</h4>
+                <p>Сградна автоматизация</p>
+            </div>
+            <div class="cert-item">
+                <div class="icon">&#9889;</div>
+                <h4>BREEAM</h4>
+                <p>Устойчиво строителство</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <div class="footer-logo">ТехноБилд</div>
+            <p>&copy; 2026 ТехноБилд ЕООД. Всички права запазени.</p>
+            <p style="margin-top:0.3rem;">София, бул. &laquo;Цариградско шосе&raquo; 115, Технологичен парк</p>
+            <div class="footer-links">
+                <a href="index.html">Начало</a>
+                <a href="services.html">Услуги</a>
+                <a href="portfolio.html">Портфолио</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

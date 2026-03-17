@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>За нас — Скайлайн Строй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #1a1a2e; color: #e0e0e0; }
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(22, 33, 62, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #ff6b35, #d946ef, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #ccc; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #ff6b35; }
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        .btn { display: inline-block; padding: 0.9rem 2.5rem; border-radius: 50px; font-weight: 600; transition: transform 0.3s, box-shadow 0.3s; }
+        .btn-primary { background: linear-gradient(135deg, #ff6b35, #d946ef); color: #fff; }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,107,53,0.4); }
+        /* Page Header */
+        .page-header { padding: 8rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(217,70,239,0.1)); }
+        .page-header h1 { font-size: 2.8rem; color: #fff; margin-bottom: 0.5rem; animation: fadeInUp 0.8s ease; }
+        .page-header p { color: #999; font-size: 1.1rem; animation: fadeInUp 0.8s ease 0.2s both; }
+        /* Story */
+        .story { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+        .story img { width: 100%; border-radius: 16px; animation: fadeInUp 0.8s ease; }
+        .story-text { animation: fadeInUp 0.8s ease 0.2s both; }
+        .story-text h2 { font-size: 2rem; color: #fff; margin-bottom: 1rem; }
+        .story-text p { color: #aaa; line-height: 1.8; margin-bottom: 1rem; }
+        /* Mission & Vision */
+        .mission { padding: 4rem 2rem; background: #16213e; }
+        .mission-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .mission-card { padding: 2.5rem; border-radius: 16px; border: 1px solid rgba(255,107,53,0.15); background: rgba(255,107,53,0.05); animation: fadeInUp 0.8s ease both; }
+        .mission-card:nth-child(2) { animation-delay: 0.2s; }
+        .mission-card h3 { color: #ff6b35; font-size: 1.4rem; margin-bottom: 1rem; }
+        .mission-card p { color: #aaa; line-height: 1.8; }
+        /* Team */
+        .team { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
+        .section-title { font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem; }
+        .section-subtitle { color: #999; margin-bottom: 3rem; }
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .team-card { background: rgba(255,107,53,0.05); border: 1px solid rgba(255,107,53,0.12); border-radius: 16px; padding: 2rem; transition: transform 0.3s; animation: fadeInUp 0.8s ease both; }
+        .team-card:nth-child(2) { animation-delay: 0.1s; }
+        .team-card:nth-child(3) { animation-delay: 0.2s; }
+        .team-card:nth-child(4) { animation-delay: 0.3s; }
+        .team-card:hover { transform: translateY(-5px); }
+        .team-avatar { width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #ff6b35, #d946ef); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: #fff; font-family: 'Syne', sans-serif; font-weight: 700; }
+        .team-card h4 { color: #fff; margin-bottom: 0.3rem; }
+        .team-card .role { color: #ff6b35; font-size: 0.85rem; margin-bottom: 0.8rem; }
+        .team-card p { color: #aaa; font-size: 0.85rem; line-height: 1.6; }
+        /* Values */
+        .values { padding: 4rem 2rem; background: #16213e; }
+        .values-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .value-item { text-align: center; padding: 2rem; animation: fadeInUp 0.8s ease both; }
+        .value-item:nth-child(2) { animation-delay: 0.15s; }
+        .value-item:nth-child(3) { animation-delay: 0.3s; }
+        .value-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+        .value-item h4 { color: #ff6b35; margin-bottom: 0.5rem; }
+        .value-item p { color: #aaa; font-size: 0.9rem; line-height: 1.6; }
+        /* Timeline */
+        .timeline { max-width: 800px; margin: 0 auto; padding: 5rem 2rem; }
+        .timeline-item { display: flex; gap: 2rem; margin-bottom: 2.5rem; animation: fadeInUp 0.8s ease both; }
+        .timeline-item:nth-child(2) { animation-delay: 0.15s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.45s; }
+        .timeline-year { min-width: 80px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.3rem; background: linear-gradient(135deg, #ff6b35, #d946ef); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .timeline-content h4 { color: #fff; margin-bottom: 0.3rem; }
+        .timeline-content p { color: #aaa; font-size: 0.9rem; line-height: 1.5; }
+        /* Footer */
+        footer { background: #0d1117; padding: 3rem 2rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: left; margin-bottom: 2rem; }
+        .footer-col h4 { color: #ff6b35; margin-bottom: 1rem; }
+        .footer-col p, .footer-col a { color: #888; font-size: 0.9rem; line-height: 1.8; display: block; }
+        .footer-col a:hover { color: #ff6b35; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; color: #666; font-size: 0.85rem; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #16213e; padding: 1rem 2rem; }
+            .nav-links.open { display: flex; }
+            .menu-toggle { display: block; }
+            .story { grid-template-columns: 1fr; }
+            .mission-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">СКАЙЛАЙН СТРОЙ</a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html" class="active">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-header">
+        <h1>За нас</h1>
+        <p>Историята на Скайлайн Строй и екипът зад успеха</p>
+    </section>
+
+    <section class="story">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800" alt="Строителство">
+        <div class="story-text">
+            <h2>Нашата история</h2>
+            <p>Скайлайн Строй е основана през 2008 г. в София с ясна визия — да трансформираме градската среда чрез модерно и устойчиво строителство.</p>
+            <p>През годините изградихме над 200 проекта — от луксозни жилищни комплекси до впечатляващи търговски центрове. Нашият екип от 50+ професионалисти работи с отдаденост и прецизност по всеки детайл.</p>
+            <p>Днес сме сред водещите строителни компании в България, известни с качеството си и иновативния подход към градското строителство.</p>
+        </div>
+    </section>
+
+    <section class="mission">
+        <div class="mission-grid">
+            <div class="mission-card">
+                <h3>Нашата мисия</h3>
+                <p>Да създаваме съвременни, устойчиви и функционални сгради, които подобряват качеството на живот и оформят облика на модерния град. Стремим се към безкомпромисно качество във всеки проект.</p>
+            </div>
+            <div class="mission-card">
+                <h3>Нашата визия</h3>
+                <p>Да бъдем водещата строителна компания в Югоизточна Европа, позната с иновативни решения, енергийна ефективност и архитектурно съвършенство. Изграждаме бъдещето на града.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team">
+        <h2 class="section-title">Нашият екип</h2>
+        <p class="section-subtitle">Професионалисти с опит и страст към строителството</p>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-avatar">ИП</div>
+                <h4>Иван Петров</h4>
+                <div class="role">Главен изпълнителен директор</div>
+                <p>Над 20 години опит в управлението на мащабни строителни проекти.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">МД</div>
+                <h4>Мария Димитрова</h4>
+                <div class="role">Главен архитект</div>
+                <p>Специалист по модерна градска архитектура и устойчив дизайн.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">ГС</div>
+                <h4>Георги Стоянов</h4>
+                <div class="role">Технически директор</div>
+                <p>Инженер с богат опит в конструктивни решения и нови технологии.</p>
+            </div>
+            <div class="team-card">
+                <div class="team-avatar">ЕВ</div>
+                <h4>Елена Василева</h4>
+                <div class="role">Ръководител проекти</div>
+                <p>Координира успешно над 80 завършени проекта в София и страната.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="values">
+        <div class="values-grid">
+            <div class="value-item">
+                <div class="value-icon">&#9733;</div>
+                <h4>Качество</h4>
+                <p>Безкомпромисни стандарти за материали, изпълнение и крайни резултати.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">&#129309;</div>
+                <h4>Доверие</h4>
+                <p>Изграждаме дългосрочни отношения чрез прозрачност и коректност.</p>
+            </div>
+            <div class="value-item">
+                <div class="value-icon">&#127793;</div>
+                <h4>Устойчивост</h4>
+                <p>Прилагаме екологични практики и енергоефективни решения.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline">
+        <h2 class="section-title" style="text-align:center; margin-bottom:3rem;">Ключови моменти</h2>
+        <div class="timeline-item">
+            <div class="timeline-year">2008</div>
+            <div class="timeline-content">
+                <h4>Основаване на компанията</h4>
+                <p>Скайлайн Строй стартира дейността си в София с екип от 8 души.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2012</div>
+            <div class="timeline-content">
+                <h4>Първият голям проект</h4>
+                <p>Завършване на жилищен комплекс "Скайлайн Резиденс" с 120 апартамента.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-content">
+                <h4>Разширяване на дейността</h4>
+                <p>Навлизане в търговското строителство и откриване на офис в Пловдив.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-content">
+                <h4>200+ завършени проекта</h4>
+                <p>Достигаме над 200 успешно завършени проекта и 50+ служители.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Скайлайн Строй</h4>
+                <p>Водеща строителна компания в София, специализирана в градско строителство и модерни жилищни комплекси.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <a href="index.html">Начало</a><a href="about.html">За нас</a><a href="services.html">Услуги</a><a href="portfolio.html">Портфолио</a><a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакти</h4>
+                <p>бул. Витоша 120, София 1000</p><p>+359 2 987 6543</p><p>info@skylinestroy.bg</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Скайлайн Строй. Всички права запазени.</div>
+    </footer>
+</body>
+</html>

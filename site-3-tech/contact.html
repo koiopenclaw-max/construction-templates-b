@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти — ТехноБилд</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Exo 2', sans-serif; background: #0a0a0a; color: #e0e0e0; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+        a { text-decoration: none; color: #e0e0e0; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,240,255,0.15); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #00f0ff; text-shadow: 0 0 20px rgba(0,240,255,0.5); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { font-size: 0.95rem; transition: color 0.3s, text-shadow 0.3s; }
+        .nav-links a:hover { color: #00f0ff; text-shadow: 0 0 10px rgba(0,240,255,0.5); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 25px; height: 2px; background: #00f0ff; }
+        .page-hero { padding: 8rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, #0a0a0a, #1a1a2e); border-bottom: 1px solid rgba(0,240,255,0.1); }
+        .page-hero h1 { font-size: 2.8rem; color: #fff; }
+        .page-hero h1 span { color: #00f0ff; text-shadow: 0 0 25px rgba(0,240,255,0.5); }
+        .page-hero p { color: #94a3b8; margin-top: 1rem; font-size: 1.1rem; }
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .form-wrap { background: #111827; border: 1px solid rgba(0,240,255,0.15); border-radius: 8px; padding: 2.5rem; animation: fadeUp 0.8s ease forwards; }
+        .form-wrap h2 { color: #22d3ee; font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .form-wrap .subtitle { color: #64748b; margin-bottom: 2rem; font-size: 0.95rem; }
+        .form-group { margin-bottom: 1.3rem; }
+        .form-group label { display: block; color: #94a3b8; font-size: 0.9rem; margin-bottom: 0.4rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 0.8rem 1rem; background: #0a0a0a; border: 1px solid rgba(0,240,255,0.15);
+            border-radius: 4px; color: #e0e0e0; font-family: 'Exo 2', sans-serif; font-size: 0.95rem;
+            transition: border-color 0.3s, box-shadow 0.3s; outline: none;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #00f0ff; box-shadow: 0 0 15px rgba(0,240,255,0.15);
+        }
+        .form-group select { cursor: pointer; }
+        .form-group select option { background: #111827; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .range-wrap { position: relative; }
+        .range-wrap input[type="range"] {
+            -webkit-appearance: none; width: 100%; height: 4px; background: #1a1a2e;
+            border-radius: 2px; outline: none; border: none; padding: 0; margin-top: 0.5rem;
+        }
+        .range-wrap input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 18px; height: 18px; border-radius: 50%;
+            background: #00f0ff; cursor: pointer; box-shadow: 0 0 12px rgba(0,240,255,0.5);
+        }
+        .range-wrap input[type="range"]::-moz-range-thumb {
+            width: 18px; height: 18px; border-radius: 50%; background: #00f0ff;
+            cursor: pointer; box-shadow: 0 0 12px rgba(0,240,255,0.5); border: none;
+        }
+        .range-value { text-align: center; color: #00f0ff; font-family: 'Space Grotesk', sans-serif; font-size: 1.1rem; margin-top: 0.5rem; text-shadow: 0 0 10px rgba(0,240,255,0.3); }
+        .submit-btn {
+            width: 100%; padding: 0.9rem; background: transparent; border: 1px solid #00f0ff;
+            color: #00f0ff; font-family: 'Space Grotesk', sans-serif; font-size: 1rem;
+            border-radius: 4px; cursor: pointer; transition: all 0.3s; margin-top: 0.5rem;
+        }
+        .submit-btn:hover { background: rgba(0,240,255,0.1); box-shadow: 0 0 25px rgba(0,240,255,0.3); }
+        .info-side { animation: fadeUp 0.8s ease 0.2s forwards; opacity: 0; }
+        .info-card { background: #111827; border: 1px solid rgba(0,240,255,0.1); border-radius: 8px; padding: 2rem; margin-bottom: 1.5rem; transition: all 0.3s; }
+        .info-card:hover { border-color: #06b6d4; box-shadow: 0 0 20px rgba(0,240,255,0.1); }
+        .info-card h3 { color: #22d3ee; font-size: 1.1rem; margin-bottom: 0.8rem; }
+        .info-item { display: flex; align-items: flex-start; gap: 0.8rem; margin-bottom: 0.8rem; }
+        .info-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 0.1rem; }
+        .info-item p { color: #94a3b8; font-size: 0.95rem; line-height: 1.5; }
+        .info-item a { color: #06b6d4; transition: color 0.3s; }
+        .info-item a:hover { color: #00f0ff; text-shadow: 0 0 8px rgba(0,240,255,0.3); }
+        .hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1rem; }
+        .hours-grid span { color: #94a3b8; font-size: 0.9rem; }
+        .hours-grid .day { color: #64748b; }
+        footer { background: #111827; border-top: 1px solid rgba(0,240,255,0.15); padding: 3rem 2rem; text-align: center; }
+        .footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; color: #00f0ff; }
+        footer p { color: #64748b; margin-top: 0.7rem; font-size: 0.9rem; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10,10,10,0.98); padding: 1rem 2rem; gap: 1rem; }
+            .nav-links.active { display: flex; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ТехноБилд</a>
+            <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="portfolio.html">Портфолио</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <h1>Поискай <span>оферта</span></h1>
+        <p>Разкажете ни за вашия проект и ние ще ви предложим решение</p>
+    </div>
+
+    <section>
+        <div class="contact-grid">
+            <div class="form-wrap">
+                <h2>Заявка за оферта</h2>
+                <p class="subtitle">Попълнете формата и ще се свържем с вас до 24 часа</p>
+                <form onsubmit="event.preventDefault(); alert('Благодарим! Ще се свържем с вас скоро.');">
+                    <div class="form-group">
+                        <label for="name">Име и фамилия</label>
+                        <input type="text" id="name" placeholder="Вашето име" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" placeholder="+359 ..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Тип обект</label>
+                        <select id="type" required>
+                            <option value="" disabled selected>Изберете тип обект</option>
+                            <option value="smart-home">Смарт дом</option>
+                            <option value="office">Офис сграда</option>
+                            <option value="industrial">Индустриален обект</option>
+                            <option value="commercial">Търговски център</option>
+                            <option value="logistics">Логистичен център</option>
+                            <option value="other">Друго</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="desc">Описание на проекта</label>
+                        <textarea id="desc" placeholder="Разкажете ни повече за вашия проект..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Ориентировъчен бюджет</label>
+                        <div class="range-wrap">
+                            <input type="range" id="budget" min="50000" max="2000000" step="50000" value="500000"
+                                oninput="document.getElementById('budgetVal').textContent = this.value >= 2000000 ? '2,000,000лв+' : new Intl.NumberFormat('bg-BG').format(this.value) + ' лв'">
+                            <div class="range-value" id="budgetVal">500 000 лв</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">Изпрати заявка</button>
+                </form>
+            </div>
+
+            <div class="info-side">
+                <div class="info-card">
+                    <h3>Контактна информация</h3>
+                    <div class="info-item">
+                        <span class="info-icon">&#128205;</span>
+                        <p>гр. София, бул. &laquo;Цариградско шосе&raquo; 115<br>Технологичен парк, сграда А, ет. 5</p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">&#128222;</span>
+                        <p><a href="tel:+35928001234">+359 2 800 1234</a></p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">&#128231;</span>
+                        <p><a href="mailto:office@technobuild.bg">office@technobuild.bg</a></p>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">&#127760;</span>
+                        <p><a href="#">www.technobuild.bg</a></p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Работно време</h3>
+                    <div class="hours-grid">
+                        <span class="day">Понеделник - Петък:</span><span>08:00 - 18:00</span>
+                        <span class="day">Събота:</span><span>09:00 - 14:00</span>
+                        <span class="day">Неделя:</span><span>Затворено</span>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3>Защо ТехноБилд?</h3>
+                    <div class="info-item"><span class="info-icon">&#9889;</span><p>Безплатна първоначална консултация</p></div>
+                    <div class="info-item"><span class="info-icon">&#128187;</span><p>3D визуализация на проекта</p></div>
+                    <div class="info-item"><span class="info-icon">&#128200;</span><p>Прозрачно ценообразуване</p></div>
+                    <div class="info-item"><span class="info-icon">&#128274;</span><p>Гаранция за качество до 10 години</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div>
+            <div class="footer-logo">ТехноБилд</div>
+            <p>&copy; 2026 ТехноБилд ЕООД. Всички права запазени.</p>
+            <p style="margin-top:0.3rem;">София, бул. &laquo;Цариградско шосе&raquo; 115, Технологичен парк</p>
+        </div>
+    </footer>
+</body>
+</html>

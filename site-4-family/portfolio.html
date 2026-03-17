@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио - Фамилия Строй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; color: #333; background: #FFFFFF; }
+        h1, h2, h3, h4 { font-family: 'Lora', serif; color: #8B0000; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 1s ease forwards; }
+        .slide-up { animation: slideUp 0.8s ease forwards; }
+        nav { background: #8B0000; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(139,0,0,0.3); }
+        .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
+        .logo { color: #FFF; font-family: 'Lora', serif; font-size: 1.4rem; font-weight: 700; padding: 15px 0; }
+        .logo span { color: #CD5C5C; }
+        nav ul { list-style: none; display: flex; gap: 5px; }
+        nav ul li a { color: #FFF; text-decoration: none; padding: 20px 15px; display: block; font-size: 0.9rem; transition: background 0.3s; }
+        nav ul li a:hover, nav ul li a.active { background: #B22222; }
+        .page-hero { position: relative; height: 45vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .page-hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+        .page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(139,0,0,0.8), rgba(178,34,34,0.6)); }
+        .page-hero-content { position: relative; z-index: 2; color: #FFF; text-align: center; }
+        .page-hero-content h1 { font-size: 2.8rem; color: #FFF; }
+        .page-hero-content p { font-size: 1.1rem; margin-top: 10px; color: #CD5C5C; }
+        section { padding: 80px 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 2.2rem; margin-bottom: 10px; }
+        .section-title .line { width: 60px; height: 3px; background: #B22222; margin: 15px auto; }
+        .section-title p { color: #666; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .project-card { background: #FFF; border-radius: 12px; overflow: hidden; box-shadow: 0 5px 25px rgba(139,0,0,0.08); transition: all 0.4s; border: 1px solid #f0e0e0; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 40px rgba(139,0,0,0.18); }
+        .project-img { height: 260px; overflow: hidden; position: relative; }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .project-card:hover .project-img img { transform: scale(1.05); }
+        .project-year { position: absolute; top: 15px; right: 15px; background: #B22222; color: #FFF; padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .project-body { padding: 25px; }
+        .project-body h3 { font-size: 1.3rem; margin-bottom: 5px; }
+        .project-location { color: #B22222; font-size: 0.88rem; font-weight: 600; margin-bottom: 12px; display: block; }
+        .project-body p { color: #666; font-size: 0.92rem; line-height: 1.7; margin-bottom: 15px; }
+        .project-quote { background: #FFF5F5; padding: 15px; border-radius: 8px; border-left: 3px solid #CD5C5C; font-style: italic; color: #555; font-size: 0.88rem; line-height: 1.6; }
+        .project-quote .author { display: block; margin-top: 8px; font-style: normal; font-weight: 600; color: #8B0000; font-size: 0.82rem; }
+        .stats-bar { background: #8B0000; padding: 50px 20px; color: #FFF; }
+        .stats-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .stats-inner h3 { font-size: 2.5rem; color: #FFF; }
+        .stats-inner p { color: #CD5C5C; font-size: 0.9rem; }
+        footer { background: #8B0000; color: #FFF; padding: 40px 20px; }
+        footer .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        footer h4 { color: #FFF; margin-bottom: 15px; }
+        footer p, footer a { color: #CD5C5C; font-size: 0.9rem; line-height: 1.8; text-decoration: none; }
+        footer a:hover { color: #FFF; }
+        .footer-bottom { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2); color: #CD5C5C; font-size: 0.85rem; max-width: 1200px; margin-left: auto; margin-right: auto; }
+        .hamburger { display: none; color: #FFF; font-size: 1.5rem; cursor: pointer; background: none; border: none; }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            nav ul { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #8B0000; }
+            nav ul.open { display: flex; }
+            .page-hero-content h1 { font-size: 2rem; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            footer .footer-inner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Фамилия <span>Строй</span></div>
+            <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">&#9776;</button>
+            <ul>
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="portfolio.html" class="active">Портфолио</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="page-hero">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200" alt="Модерна къща">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content fade-in"><h1>Нашето портфолио</h1><p>Домове, построени с любов и майсторство</p></div>
+    </div>
+    <section>
+        <div class="container">
+            <div class="section-title"><h2>Завършени проекти</h2><div class="line"></div><p>Всеки проект разказва историята на едно семейство</p></div>
+            <div class="portfolio-grid">
+                <div class="project-card slide-up">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800" alt="Къща Петрови"><span class="project-year">2024</span></div>
+                    <div class="project-body"><h3>Къща "Петрови"</h3><span class="project-location">Велико Търново, кв. Картала</span><p>Двуетажна еднофамилна къща с площ 220 кв.м. Модерен дизайн с традиционни елементи, просторен двор и гараж за два автомобила.</p>
+                    <div class="project-quote">"Мечтаният ни дом стана реалност. Благодарим на екипа за търпението и вниманието."<span class="author">- Семейство Петрови</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.1s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Вила Иванови"><span class="project-year">2023</span></div>
+                    <div class="project-body"><h3>Вила "Слънчев хълм"</h3><span class="project-location">Арбанаси</span><p>Луксозна вила от 350 кв.м. с панорамна гледка към Стара планина. Традиционен архитектурен стил с модерни удобства.</p>
+                    <div class="project-quote">"Всеки път, когато се прибираме, се чувстваме като в рая. Перфектна работа!"<span class="author">- Семейство Иванови</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.2s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800" alt="Апартамент"><span class="project-year">2023</span></div>
+                    <div class="project-body"><h3>Жилищна сграда "Царевград"</h3><span class="project-location">Велико Търново, център</span><p>Многофамилна сграда с 12 апартамента. Енергиен клас А, подземен паркинг и озеленен вътрешен двор.</p>
+                    <div class="project-quote">"Качеството на строителството е на световно ниво. Живеем тук с удоволствие."<span class="author">- Георги Стоянов</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.3s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800" alt="Ремонт"><span class="project-year">2024</span></div>
+                    <div class="project-body"><h3>Реновация "Стария квартал"</h3><span class="project-location">Велико Търново, Стария град</span><p>Цялостна реновация на възрожденска къща от 19-ти век. Запазени автентични елементи с модерни инсталации.</p>
+                    <div class="project-quote">"Успяха да съчетаят историята с модерния комфорт. Истински професионалисти."<span class="author">- Семейство Николови</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.4s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Модерна къща"><span class="project-year">2022</span></div>
+                    <div class="project-body"><h3>Къща "Младенови"</h3><span class="project-location">Горна Оряховица</span><p>Едноетажна семейна къща от 180 кв.м. с голяма градина. Проектирана за семейство с три деца, с акцент върху безопасността.</p>
+                    <div class="project-quote">"Децата обожават новия дом. Помислиха за всичко - от детската стая до градината."<span class="author">- Семейство Младенови</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.5s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800" alt="Модерна сграда"><span class="project-year">2022</span></div>
+                    <div class="project-body"><h3>Комплекс "Тревненски балкони"</h3><span class="project-location">Трявна</span><p>Жилищен комплекс от 6 къщи в планински стил. Общи зелени площи, детска площадка и панорамни тераси.</p>
+                    <div class="project-quote">"Цялата ни махала е като едно голямо семейство. Фамилия Строй създадоха не къщи, а общност."<span class="author">- Мария Тодорова</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.6s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c0?w=800" alt="Кухня"><span class="project-year">2024</span></div>
+                    <div class="project-body"><h3>Интериор "Семейно гнездо"</h3><span class="project-location">Велико Търново</span><p>Цялостен интериорен дизайн и ремонт на апартамент от 120 кв.м. Топли тонове, натурални материали и уютна атмосфера.</p>
+                    <div class="project-quote">"Кухнята е сърцето на нашия дом. Благодарим за магията, която създадохте!"<span class="author">- Семейство Георгиеви</span></div></div>
+                </div>
+                <div class="project-card slide-up" style="animation-delay:0.7s">
+                    <div class="project-img"><img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800" alt="Строителство"><span class="project-year">2021</span></div>
+                    <div class="project-body"><h3>Къща "Балканска мечта"</h3><span class="project-location">Килифарево</span><p>Триетажна къща от 280 кв.м. за многочленно семейство. Всеки етаж е проектиран за отделно поколение.</p>
+                    <div class="project-quote">"Три поколения под един покрив - точно като Фамилия Строй. Перфектно съвпадение!"<span class="author">- Семейство Колеви</span></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="stats-bar">
+        <div class="stats-inner">
+            <div><h3>1000+</h3><p>Завършени проекта</p></div>
+            <div><h3>35+</h3><p>Години опит</p></div>
+            <div><h3>98%</h3><p>Доволни клиенти</p></div>
+            <div><h3>50+</h3><p>Награди</p></div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-inner">
+            <div><h4>Фамилия Строй</h4><p>Семейна строителна компания с традиции от 1988 година.</p></div>
+            <div><h4>Навигация</h4><p><a href="index.html">Начало</a></p><p><a href="about.html">За нас</a></p><p><a href="services.html">Услуги</a></p><p><a href="portfolio.html">Портфолио</a></p><p><a href="contact.html">Контакти</a></p></div>
+            <div><h4>Контакти</h4><p>ул. Никола Пиколо 15, Велико Търново</p><p>Тел: +359 62 600 123</p><p>Email: office@familiastroy.bg</p></div>
+        </div>
+        <div class="footer-bottom"><p>&copy; 2026 Фамилия Строй. Всички права запазени.</p></div>
+    </footer>
+</body>
+</html>

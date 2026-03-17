@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Минимал Арх — По-малко е повече</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; color: #1a1a1a; background: #FFFFFF; font-weight: 300; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 1s ease forwards; }
+        .fade-in-d1 { animation-delay: 0.2s; }
+        .fade-in-d2 { animation-delay: 0.4s; }
+        .fade-in-d3 { animation-delay: 0.6s; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes lineGrow { from { width: 0; } to { width: 60px; } }
+        @keyframes heroLineGrow { from { width: 0; } to { width: 80px; } }
+        @keyframes fadeSlideLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        .thin-line { width: 60px; height: 1px; background: #000; margin: 30px auto; animation: lineGrow 1s ease forwards; }
+
+        /* Navigation */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 60px; position: absolute; top: 0; left: 0; right: 0; z-index: 100;
+        }
+        .logo { font-family: 'Bodoni Moda', serif; font-size: 1.4rem; letter-spacing: 3px; text-transform: uppercase; color: #fff; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            color: #fff; font-size: 0.8rem; letter-spacing: 2px;
+            text-transform: uppercase; position: relative; transition: opacity 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: #fff; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { opacity: 0.7; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 24px; height: 1px; background: #fff; transition: 0.3s; }
+
+        /* Hero */
+        .hero {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=1400') center/cover;
+            position: relative; display: flex; align-items: center; justify-content: center;
+        }
+        .hero::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: #fff; }
+        .hero-content h1 { font-size: 4rem; font-weight: 400; letter-spacing: 6px; margin-bottom: 20px; }
+        .hero-content p { font-size: 1.1rem; letter-spacing: 4px; font-weight: 300; }
+        .hero-line { width: 80px; height: 1px; background: #fff; margin: 30px auto; animation: heroLineGrow 1.5s ease forwards; }
+        .scroll-hint {
+            position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2;
+            color: rgba(255,255,255,0.5); font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase;
+            animation: fadeIn 2s ease forwards; animation-delay: 1.5s; opacity: 0;
+        }
+
+        /* Intro Text */
+        .intro {
+            padding: 120px 60px; text-align: center; max-width: 800px; margin: 0 auto;
+        }
+        .intro h2 { font-size: 2rem; letter-spacing: 3px; margin-bottom: 20px; }
+        .intro p { color: #666; line-height: 2; font-size: 0.95rem; }
+
+        /* Features */
+        .features { padding: 80px 60px 120px; text-align: center; background: #FAFAFA; }
+        .features-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 80px; max-width: 1100px; margin: 0 auto;
+        }
+        .feature-item { transition: transform 0.3s ease; }
+        .feature-item:hover { transform: translateY(-5px); }
+        .feature-item h3 { font-size: 1.6rem; margin-bottom: 16px; letter-spacing: 2px; }
+        .feature-item p { color: #666; line-height: 1.8; font-size: 0.95rem; }
+        .feature-item .f-line { width: 40px; height: 1px; background: #000; margin: 0 auto 24px; }
+
+        /* Works */
+        .works { padding: 120px 60px; }
+        .section-title { text-align: center; margin-bottom: 80px; }
+        .section-title h2 { font-size: 2.4rem; letter-spacing: 3px; }
+        .works-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr);
+            gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+        .work-card { position: relative; overflow: hidden; aspect-ratio: 3/4; }
+        .work-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s ease, filter 0.6s ease;
+        }
+        .work-card:hover img { transform: scale(1.05); filter: brightness(0.8); }
+        .work-card .overlay {
+            position: absolute; bottom: 0; left: 0; right: 0; padding: 30px;
+            color: #fff; transform: translateY(20px); opacity: 0; transition: all 0.4s ease;
+        }
+        .work-card:hover .overlay { transform: translateY(0); opacity: 1; }
+        .overlay h4 { font-size: 1.2rem; letter-spacing: 2px; }
+        .overlay span { font-size: 0.75rem; letter-spacing: 1px; color: #999; }
+        .works-link {
+            text-align: center; margin-top: 60px;
+        }
+        .works-link a {
+            font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;
+            border-bottom: 1px solid #000; padding-bottom: 4px; transition: opacity 0.3s;
+        }
+        .works-link a:hover { opacity: 0.5; }
+
+        /* Testimonial */
+        .testimonial {
+            padding: 120px 60px; text-align: center; background: #FAFAFA;
+        }
+        .testimonial blockquote {
+            font-family: 'Bodoni Moda', serif; font-size: 1.8rem;
+            font-style: italic; max-width: 700px; margin: 0 auto; line-height: 1.6;
+        }
+        .testimonial cite {
+            display: block; margin-top: 30px; font-size: 0.75rem;
+            letter-spacing: 3px; color: #999; font-style: normal; text-transform: uppercase;
+        }
+
+        /* CTA */
+        .cta { padding: 120px 60px; text-align: center; }
+        .cta h2 { font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 16px; }
+        .cta p { color: #666; margin-bottom: 40px; font-size: 0.95rem; }
+        .btn {
+            display: inline-block; padding: 16px 50px; border: 1px solid #000;
+            font-family: 'Raleway', sans-serif; font-size: 0.8rem; letter-spacing: 3px;
+            text-transform: uppercase; transition: all 0.4s ease; background: transparent; cursor: pointer;
+        }
+        .btn:hover { background: #000; color: #fff; }
+
+        /* Footer */
+        footer { padding: 60px; text-align: center; border-top: 1px solid #eee; }
+        footer .foot-logo {
+            font-family: 'Bodoni Moda', serif; font-size: 1.2rem;
+            letter-spacing: 3px; margin-bottom: 20px;
+        }
+        footer p { font-size: 0.75rem; color: #999; letter-spacing: 2px; }
+        footer .foot-links { margin-bottom: 20px; display: flex; justify-content: center; gap: 30px; }
+        footer .foot-links a { font-size: 0.75rem; color: #666; letter-spacing: 1px; transition: color 0.3s; }
+        footer .foot-links a:hover { color: #000; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .nav-links {
+                display: none; position: absolute; top: 70px; left: 0; right: 0;
+                background: rgba(0,0,0,0.95); flex-direction: column; padding: 30px; gap: 20px;
+            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .hero-content h1 { font-size: 2.2rem; letter-spacing: 3px; }
+            .intro { padding: 80px 30px; }
+            .features { padding: 60px 30px; }
+            .features-grid { grid-template-columns: 1fr; gap: 50px; }
+            .works { padding: 80px 30px; }
+            .works-grid { grid-template-columns: 1fr; }
+            .testimonial { padding: 80px 30px; }
+            .testimonial blockquote { font-size: 1.3rem; }
+            .cta { padding: 80px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Минимал Арх</a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content fade-in">
+            <h1>Минимал Арх</h1>
+            <div class="hero-line"></div>
+            <p>По-малко е повече.</p>
+        </div>
+        <div class="scroll-hint">Разгледайте</div>
+    </section>
+
+    <section class="intro fade-in">
+        <h2>Архитектура без излишества</h2>
+        <div class="thin-line"></div>
+        <p>Ние създаваме пространства, които говорят чрез тишина. Всяка линия, всеки материал, всяка пропорция е обмислена до съвършенство. Нашата мисия е да докажем, че истинската красота се крие в простотата.</p>
+    </section>
+
+    <section class="features">
+        <div class="features-grid">
+            <div class="feature-item fade-in fade-in-d1">
+                <div class="f-line"></div>
+                <h3>Архитектура</h3>
+                <p>Чисти линии и форми, които дефинират съвременното пространство с безкомпромисна прецизност и внимание към всеки детайл.</p>
+            </div>
+            <div class="feature-item fade-in fade-in-d2">
+                <div class="f-line"></div>
+                <h3>Прецизност</h3>
+                <p>Всеки детайл е обмислен. Всяка линия има значение. Нищо излишно, всичко необходимо. Точност до милиметър.</p>
+            </div>
+            <div class="feature-item fade-in fade-in-d3">
+                <div class="f-line"></div>
+                <h3>Естетика</h3>
+                <p>Красотата се крие в простотата. Създаваме пространства, които вдъхновяват с тишина и елегантност.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="works">
+        <div class="section-title fade-in">
+            <h2>Избрани проекти</h2>
+            <div class="thin-line"></div>
+        </div>
+        <div class="works-grid">
+            <div class="work-card fade-in fade-in-d1">
+                <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800" alt="Резиденция Бяла">
+                <div class="overlay">
+                    <h4>Резиденция Бяла</h4>
+                    <span>София, 2024</span>
+                </div>
+            </div>
+            <div class="work-card fade-in fade-in-d2">
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800" alt="Лофт Център">
+                <div class="overlay">
+                    <h4>Лофт Център</h4>
+                    <span>Пловдив, 2023</span>
+                </div>
+            </div>
+            <div class="work-card fade-in fade-in-d3">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Вила Минимал">
+                <div class="overlay">
+                    <h4>Вила Минимал</h4>
+                    <span>Варна, 2024</span>
+                </div>
+            </div>
+        </div>
+        <div class="works-link fade-in">
+            <a href="portfolio.html">Вижте всички проекти</a>
+        </div>
+    </section>
+
+    <section class="testimonial fade-in">
+        <blockquote>&bdquo;Минимал Арх превърнаха нашата визия в реалност. Домът ни е произведение на изкуството.&ldquo;</blockquote>
+        <cite>Семейство Петрови, София</cite>
+        <div class="thin-line"></div>
+    </section>
+
+    <section class="cta fade-in">
+        <h2>Започнете проекта си</h2>
+        <p>Свържете се с нас за безплатна консултация</p>
+        <a href="contact.html" class="btn">Поискай оферта</a>
+    </section>
+
+    <footer>
+        <div class="foot-logo">Минимал Арх</div>
+        <div class="foot-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Минимал Арх. Всички права запазени.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

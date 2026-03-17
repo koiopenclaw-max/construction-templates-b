@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги - Дървен Майстор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cabin', sans-serif; color: #3E2723; background: #FFF8F0; }
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: #8B6914; }
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-up { animation: slideUp 0.8s ease forwards; }
+
+        nav { background: #3E2723; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: 'Merriweather', serif; color: #DEB887; font-size: 1.4rem; padding: 1rem 0; font-weight: 700; }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; }
+        .nav-links a { color: #FAF0E6; padding: 0.6rem 1rem; border-radius: 4px; transition: background 0.3s, color 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: #8B6914; color: #FFF; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 28px; height: 3px; background: #DEB887; border-radius: 2px; }
+
+        .page-hero { background: linear-gradient(rgba(62,39,35,0.8), rgba(62,39,35,0.8)), url('https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1400') center/cover; padding: 6rem 5%; text-align: center; color: #FFF; animation: fadeIn 1s ease; }
+        .page-hero h1 { font-size: 3rem; color: #DEB887; margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.2rem; color: #FAF0E6; max-width: 600px; margin: 0 auto; }
+
+        .services { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; }
+        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; }
+        .service-card { background: #FAF0E6; border-radius: 14px; overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; animation: slideUp 0.8s ease forwards; border: 1px solid #DEB887; }
+        .service-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(139,105,20,0.18); }
+        .service-card img { width: 100%; height: 250px; object-fit: cover; transition: transform 0.5s; }
+        .service-card:hover img { transform: scale(1.05); }
+        .service-card-body { padding: 2rem; }
+        .service-card h3 { font-size: 1.4rem; margin-bottom: 0.8rem; }
+        .service-card p { color: #5D4037; line-height: 1.7; margin-bottom: 1rem; }
+        .service-features { list-style: none; }
+        .service-features li { padding: 0.4rem 0; color: #5D4037; padding-left: 1.5rem; position: relative; }
+        .service-features li::before { content: "\2713"; position: absolute; left: 0; color: #8B6914; font-weight: 700; }
+
+        .service-card-full { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+        .service-card-full img { height: 100%; min-height: 300px; }
+
+        .cta { padding: 5rem 5%; background: #3E2723; text-align: center; }
+        .cta h2 { font-size: 2rem; color: #DEB887; margin-bottom: 1rem; }
+        .cta p { color: #FAF0E6; margin-bottom: 2rem; font-size: 1.1rem; }
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: #8B6914; color: #FFF; border-radius: 6px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s, transform 0.3s; }
+        .btn:hover { background: #A0522D; transform: translateY(-2px); }
+
+        footer { background: #3E2723; color: #FAF0E6; padding: 3rem 5%; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: #DEB887; transition: color 0.3s; }
+        .footer-links a:hover { color: #FFF; }
+        footer p { color: #A1887F; }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #3E2723; padding: 1rem; }
+            .nav-links.open { display: flex; }
+            .page-hero h1 { font-size: 2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .service-card-full { grid-template-columns: 1fr; }
+            .service-card-full img { min-height: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">Дървен Майстор</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html" class="active">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-hero">
+        <h1>Нашите услуги</h1>
+        <p>Пълна гама дърводелски услуги за вашия дом и бизнес</p>
+    </section>
+
+    <section class="services">
+        <h2 class="section-title">Какво предлагаме</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800" alt="Дърводелски услуги">
+                <div class="service-card-body">
+                    <h3>Дърводелски услуги</h3>
+                    <p>Професионални дърводелски услуги по поръчка - от малки ремонти до мащабни проекти.</p>
+                    <ul class="service-features">
+                        <li>Изработка на дървени конструкции</li>
+                        <li>Монтаж на ламинат и паркет</li>
+                        <li>Облицовки и декоративни панели</li>
+                        <li>Дървени огради и беседки</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800" alt="Интериорен дизайн">
+                <div class="service-card-body">
+                    <h3>Интериорен дизайн</h3>
+                    <p>Създаваме уютни интериори с дърво като основен акцент - топлина и стил във всяка стая.</p>
+                    <ul class="service-features">
+                        <li>3D визуализация на проекта</li>
+                        <li>Подбор на материали и цветове</li>
+                        <li>Дървени акценти и облицовки</li>
+                        <li>Цялостен интериорен проект</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800" alt="Ремонти и реставрации">
+                <div class="service-card-body">
+                    <h3>Ремонти и реставрации</h3>
+                    <p>Възстановяваме стари дървени конструкции и мебели до първоначалния им блясък.</p>
+                    <ul class="service-features">
+                        <li>Реставрация на антични мебели</li>
+                        <li>Ремонт на дървени подове</li>
+                        <li>Обновяване на дървени фасади</li>
+                        <li>Защитни покрития и лакиране</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=800" alt="Покривни конструкции">
+                <div class="service-card-body">
+                    <h3>Покривни конструкции</h3>
+                    <p>Проектиране и изграждане на здрави и красиви дървени покривни конструкции.</p>
+                    <ul class="service-features">
+                        <li>Нови покривни конструкции</li>
+                        <li>Ремонт и укрепване</li>
+                        <li>Дървени навеси и козирки</li>
+                        <li>Мансардни конструкции</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="service-card service-card-full">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Мебели по поръчка">
+                <div class="service-card-body">
+                    <h3>Мебели по поръчка</h3>
+                    <p>Уникални мебели от масивно дърво, създадени специално за вашето пространство. Всяко изделие е ръчно изработено с внимание към детайла и любов към занаята.</p>
+                    <ul class="service-features">
+                        <li>Кухненски мебели от масив</li>
+                        <li>Гардероби и шкафове по мярка</li>
+                        <li>Маси и столове от дъб и бук</li>
+                        <li>Библиотеки и стелажи</li>
+                        <li>Спални комплекти от масивно дърво</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 5rem 5%; background: #FAF0E6;">
+        <h2 class="section-title">Нашият процес на работа</h2>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; text-align: center;">
+            <div style="animation: slideUp 0.8s ease forwards;">
+                <div style="width: 60px; height: 60px; background: #8B6914; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem; font-family: 'Merriweather', serif;">1</div>
+                <h3 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1.1rem;">Консултация</h3>
+                <p style="color: #5D4037; line-height: 1.6;">Обсъждаме вашата идея, нужди и бюджет в детайли.</p>
+            </div>
+            <div style="animation: slideUp 0.8s ease 0.15s forwards; opacity: 0;">
+                <div style="width: 60px; height: 60px; background: #8B6914; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem; font-family: 'Merriweather', serif;">2</div>
+                <h3 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1.1rem;">Проектиране</h3>
+                <p style="color: #5D4037; line-height: 1.6;">Създаваме детайлен проект с 3D визуализация.</p>
+            </div>
+            <div style="animation: slideUp 0.8s ease 0.3s forwards; opacity: 0;">
+                <div style="width: 60px; height: 60px; background: #8B6914; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem; font-family: 'Merriweather', serif;">3</div>
+                <h3 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1.1rem;">Изработка</h3>
+                <p style="color: #5D4037; line-height: 1.6;">Ръчна изработка в нашата работилница с прецизност.</p>
+            </div>
+            <div style="animation: slideUp 0.8s ease 0.45s forwards; opacity: 0;">
+                <div style="width: 60px; height: 60px; background: #8B6914; color: #FFF; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; margin: 0 auto 1rem; font-family: 'Merriweather', serif;">4</div>
+                <h3 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1.1rem;">Монтаж</h3>
+                <p style="color: #5D4037; line-height: 1.6;">Професионален монтаж и финална проверка на качеството.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Готови ли сте за вашия проект?</h2>
+        <p>Свържете се с нас за безплатна консултация и оферта</p>
+        <a href="contact.html" class="btn">Поискай оферта</a>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Дървен Майстор. Всички права запазени. гр. Пловдив</p>
+    </footer>
+</body>
+</html>

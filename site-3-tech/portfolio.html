@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио — ТехноБилд</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Exo 2', sans-serif; background: #0a0a0a; color: #e0e0e0; }
+        h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+        a { text-decoration: none; color: #e0e0e0; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(10,10,10,0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(0,240,255,0.15); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; color: #00f0ff; text-shadow: 0 0 20px rgba(0,240,255,0.5); }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { font-size: 0.95rem; transition: color 0.3s, text-shadow 0.3s; }
+        .nav-links a:hover { color: #00f0ff; text-shadow: 0 0 10px rgba(0,240,255,0.5); }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .hamburger span { width: 25px; height: 2px; background: #00f0ff; }
+        .page-hero { padding: 8rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, #0a0a0a, #1a1a2e); border-bottom: 1px solid rgba(0,240,255,0.1); }
+        .page-hero h1 { font-size: 2.8rem; color: #fff; }
+        .page-hero h1 span { color: #00f0ff; text-shadow: 0 0 25px rgba(0,240,255,0.5); }
+        .page-hero p { color: #94a3b8; margin-top: 1rem; font-size: 1.1rem; }
+        section { padding: 5rem 2rem; max-width: 1200px; margin: 0 auto; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
+        .project-card { background: #111827; border: 1px solid rgba(0,240,255,0.1); border-radius: 8px; overflow: hidden; transition: all 0.4s; animation: fadeUp 0.8s ease forwards; opacity: 0; }
+        .project-card:nth-child(2) { animation-delay: 0.1s; }
+        .project-card:nth-child(3) { animation-delay: 0.2s; }
+        .project-card:nth-child(4) { animation-delay: 0.3s; }
+        .project-card:nth-child(5) { animation-delay: 0.4s; }
+        .project-card:nth-child(6) { animation-delay: 0.5s; }
+        .project-card:nth-child(7) { animation-delay: 0.6s; }
+        .project-card:nth-child(8) { animation-delay: 0.7s; }
+        .project-card:hover { border-color: #00f0ff; box-shadow: 0 0 35px rgba(0,240,255,0.2); transform: translateY(-5px); }
+        .project-img { width: 100%; height: 220px; object-fit: cover; display: block; transition: transform 0.5s; }
+        .project-card:hover .project-img { transform: scale(1.05); }
+        .project-img-wrap { overflow: hidden; position: relative; }
+        .project-img-wrap::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(transparent, #111827); }
+        .project-info { padding: 1.5rem; }
+        .project-info h3 { color: #22d3ee; font-size: 1.15rem; margin-bottom: 0.5rem; }
+        .project-meta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+        .project-meta span { font-size: 0.8rem; color: #64748b; background: rgba(0,240,255,0.05); border: 1px solid rgba(0,240,255,0.1); padding: 0.2rem 0.6rem; border-radius: 20px; }
+        .project-info p { color: #94a3b8; font-size: 0.9rem; line-height: 1.6; }
+        .tech-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
+        .tech-tag { font-size: 0.75rem; color: #06b6d4; border: 1px solid rgba(6,182,212,0.3); padding: 0.15rem 0.5rem; border-radius: 4px; }
+        .filters { display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.6rem 1.5rem; background: transparent; border: 1px solid rgba(0,240,255,0.2); color: #94a3b8; border-radius: 4px; cursor: pointer; font-family: 'Exo 2', sans-serif; font-size: 0.9rem; transition: all 0.3s; }
+        .filter-btn:hover, .filter-btn.active { background: rgba(0,240,255,0.1); border-color: #00f0ff; color: #00f0ff; box-shadow: 0 0 15px rgba(0,240,255,0.2); }
+        .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; padding: 3rem 2rem; max-width: 1200px; margin: 0 auto; text-align: center; border-top: 1px solid rgba(0,240,255,0.1); border-bottom: 1px solid rgba(0,240,255,0.1); }
+        .stats-bar .stat-num { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; color: #00f0ff; text-shadow: 0 0 20px rgba(0,240,255,0.3); }
+        .stats-bar .stat-label { color: #64748b; font-size: 0.85rem; margin-top: 0.3rem; }
+        footer { background: #111827; border-top: 1px solid rgba(0,240,255,0.15); padding: 3rem 2rem; }
+        .footer-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .footer-logo { font-family: 'Space Grotesk', sans-serif; font-size: 1.3rem; font-weight: 700; color: #00f0ff; }
+        footer p, footer a { color: #64748b; margin-top: 0.5rem; font-size: 0.9rem; text-decoration: none; display: block; }
+        footer a:hover { color: #00f0ff; }
+        footer h4 { color: #22d3ee; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; margin-bottom: 0.8rem; }
+        .footer-bottom { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,240,255,0.1); color: #475569; font-size: 0.85rem; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: rgba(10,10,10,0.98); padding: 1rem 2rem; gap: 1rem; }
+            .nav-links.active { display: flex; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">ТехноБилд</a>
+            <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+                <span></span><span></span><span></span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="portfolio.html">Портфолио</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <h1>Нашето <span>портфолио</span></h1>
+        <p>Проекти, които дефинират бъдещето на строителството</p>
+    </div>
+
+    <div class="stats-bar">
+        <div>
+            <div class="stat-num">100+</div>
+            <div class="stat-label">Завършени проекта</div>
+        </div>
+        <div>
+            <div class="stat-num">500K</div>
+            <div class="stat-label">м² построена площ</div>
+        </div>
+        <div>
+            <div class="stat-num">98%</div>
+            <div class="stat-label">Доволни клиенти</div>
+        </div>
+        <div>
+            <div class="stat-num">15+</div>
+            <div class="stat-label">Технологии</div>
+        </div>
+    </div>
+
+    <section>
+        <div class="filters">
+            <button class="filter-btn active">Всички</button>
+            <button class="filter-btn">Офис сгради</button>
+            <button class="filter-btn">Жилищни</button>
+            <button class="filter-btn">Индустриални</button>
+            <button class="filter-btn">Търговски</button>
+        </div>
+        <div class="portfolio-grid">
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" alt="Смарт офис кула"></div>
+                <div class="project-info">
+                    <h3>Смарт офис кула &laquo;Дигитал&raquo;</h3>
+                    <div class="project-meta"><span>Офис сграда</span><span>2024</span><span>12 000 м&sup2;</span></div>
+                    <p>18-етажна интелигентна офис сграда с пълна BIM координация и IoT мрежа за мониторинг на всички системи.</p>
+                    <div class="tech-tags"><span class="tech-tag">BIM</span><span class="tech-tag">IoT</span><span class="tech-tag">KNX</span><span class="tech-tag">LEED Gold</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800" alt="Технологичен хъб"></div>
+                <div class="project-info">
+                    <h3>Технологичен хъб &laquo;Иновация&raquo;</h3>
+                    <div class="project-meta"><span>Технологичен център</span><span>2023</span><span>8 500 м&sup2;</span></div>
+                    <p>Коуъркинг и стартъп хъб с адаптивни работни пространства, интелигентно осветление и климатизация.</p>
+                    <div class="tech-tags"><span class="tech-tag">DALI осветление</span><span class="tech-tag">AI климат</span><span class="tech-tag">Соларни панели</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1518005068251-37900150dfca?w=800" alt="Жилищен комплекс"></div>
+                <div class="project-info">
+                    <h3>Жилищен комплекс &laquo;НеоВита&raquo;</h3>
+                    <div class="project-meta"><span>Жилищен</span><span>2024</span><span>15 000 м&sup2;</span></div>
+                    <p>Луксозен смарт комплекс от 4 сгради с централизирана система за управление и зелени покриви.</p>
+                    <div class="tech-tags"><span class="tech-tag">Smart Home</span><span class="tech-tag">Зелен покрив</span><span class="tech-tag">EV зарядни</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800" alt="Логистичен център"></div>
+                <div class="project-info">
+                    <h3>Логистичен център &laquo;ТрансТех&raquo;</h3>
+                    <div class="project-meta"><span>Индустриален</span><span>2022</span><span>25 000 м&sup2;</span></div>
+                    <p>Автоматизиран логистичен център с роботизирани складови системи и енергийно независимост.</p>
+                    <div class="tech-tags"><span class="tech-tag">Автоматизация</span><span class="tech-tag">Фотоволтаици</span><span class="tech-tag">BREEAM</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1483366774565-c783b9f70e2c?w=800" alt="Хотел интериор"></div>
+                <div class="project-info">
+                    <h3>Бутиков хотел &laquo;ТехноЛукс&raquo;</h3>
+                    <div class="project-meta"><span>Хотелиерство</span><span>2023</span><span>4 200 м&sup2;</span></div>
+                    <p>5-звезден хотел с умни стаи — гласов контрол, автоматични щори и персонализирано осветление.</p>
+                    <div class="tech-tags"><span class="tech-tag">Voice Control</span><span class="tech-tag">Philips Hue</span><span class="tech-tag">Smart HVAC</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=800" alt="Корпоративен офис"></div>
+                <div class="project-info">
+                    <h3>Корпоративен център &laquo;Аксис&raquo;</h3>
+                    <div class="project-meta"><span>Офис сграда</span><span>2025</span><span>9 800 м&sup2;</span></div>
+                    <p>Нетнулева офис сграда с интегрирана соларна фасада и рекуперативна вентилационна система.</p>
+                    <div class="tech-tags"><span class="tech-tag">Net Zero</span><span class="tech-tag">Соларна фасада</span><span class="tech-tag">BMS</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=800" alt="Търговски център"></div>
+                <div class="project-info">
+                    <h3>Търговски център &laquo;Нова Ера&raquo;</h3>
+                    <div class="project-meta"><span>Търговски</span><span>2021</span><span>32 000 м&sup2;</span></div>
+                    <p>Мултифункционален молс с умна паркинг система, LED фасада и централизирано BMS управление.</p>
+                    <div class="tech-tags"><span class="tech-tag">LED фасада</span><span class="tech-tag">BMS</span><span class="tech-tag">Smart Parking</span></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img-wrap"><img class="project-img" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=800" alt="R&D лаборатория"></div>
+                <div class="project-info">
+                    <h3>R&D лаборатория &laquo;Квантум&raquo;</h3>
+                    <div class="project-meta"><span>Лаборатория</span><span>2025</span><span>3 500 м&sup2;</span></div>
+                    <p>Високотехнологична изследователска лаборатория с чисти стаи, прецизен климат и вибрационна изолация.</p>
+                    <div class="tech-tags"><span class="tech-tag">Clean Room</span><span class="tech-tag">Прецизен HVAC</span><span class="tech-tag">ISO 14644</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <div class="footer-logo">ТехноБилд</div>
+                <p>Иновативни строителни технологии за бъдещето на градската среда.</p>
+                <p>ISO 9001:2015 | ISO 14001:2018</p>
+            </div>
+            <div>
+                <h4>Навигация</h4>
+                <a href="index.html">Начало</a>
+                <a href="about.html">За нас</a>
+                <a href="services.html">Услуги</a>
+                <a href="portfolio.html">Портфолио</a>
+                <a href="contact.html">Контакти</a>
+            </div>
+            <div>
+                <h4>Контакти</h4>
+                <p>бул. „Цариградско шосе" 115</p>
+                <p>Технологичен парк, София</p>
+                <p>Тел: +359 2 981 7700</p>
+                <p>Email: office@technobuild.bg</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 ТехноБилд ЕООД. Всички права запазени.</div>
+    </footer>
+</body>
+</html>

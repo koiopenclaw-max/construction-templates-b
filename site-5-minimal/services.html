@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги — Минимал Арх</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; color: #1a1a1a; background: #FFFFFF; font-weight: 300; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 1s ease forwards; }
+        .fade-in-d1 { animation-delay: 0.15s; }
+        .fade-in-d2 { animation-delay: 0.3s; }
+        .fade-in-d3 { animation-delay: 0.45s; }
+        .fade-in-d4 { animation-delay: 0.6s; }
+        .fade-in-d5 { animation-delay: 0.75s; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes lineGrow { from { width: 0; } to { width: 60px; } }
+        .thin-line { width: 60px; height: 1px; background: #000; margin: 30px auto; animation: lineGrow 1s ease forwards; }
+
+        /* Nav */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 60px; border-bottom: 1px solid #eee;
+        }
+        .logo { font-family: 'Bodoni Moda', serif; font-size: 1.4rem; letter-spacing: 3px; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+            position: relative; transition: opacity 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: #000; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { opacity: 0.5; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 24px; height: 1px; background: #000; }
+
+        /* Header */
+        .page-header { padding: 120px 60px 80px; text-align: center; }
+        .page-header h1 { font-size: 3rem; letter-spacing: 4px; }
+        .page-header p { color: #666; margin-top: 16px; font-size: 0.95rem; letter-spacing: 1px; }
+
+        /* Services */
+        .services { padding: 40px 60px 120px; max-width: 1100px; margin: 0 auto; }
+        .service-card {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            padding: 80px 0; border-bottom: 1px solid #eee; align-items: center;
+        }
+        .service-card:last-child { border-bottom: none; }
+        .service-card.reverse { direction: rtl; }
+        .service-card.reverse > * { direction: ltr; }
+        .service-num {
+            font-family: 'Bodoni Moda', serif; font-size: 5rem;
+            color: #eee; line-height: 1; margin-bottom: 16px;
+        }
+        .service-info h3 { font-size: 1.8rem; letter-spacing: 2px; margin-bottom: 12px; }
+        .service-info .s-line { width: 40px; height: 1px; background: #000; margin: 20px 0; }
+        .service-info p { color: #666; line-height: 2; font-size: 0.95rem; }
+        .service-img {
+            width: 100%; height: 350px; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .service-card:hover .service-img { transform: scale(1.02); }
+        .service-features { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .service-features span {
+            font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase;
+            color: #999; padding: 6px 14px; border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+        .service-features span:hover { border-color: #000; color: #1a1a1a; }
+
+        /* Process */
+        .process { padding: 120px 60px; background: #FAFAFA; }
+        .process-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+            max-width: 1100px; margin: 0 auto; text-align: center;
+        }
+        .process-step { padding: 30px 20px; }
+        .process-step .step-num {
+            font-family: 'Bodoni Moda', serif; font-size: 3rem;
+            color: #ddd; margin-bottom: 16px;
+        }
+        .process-step h4 { font-size: 1rem; letter-spacing: 2px; margin-bottom: 10px; }
+        .process-step p { color: #666; font-size: 0.85rem; line-height: 1.8; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 2.4rem; letter-spacing: 3px; }
+
+        /* CTA */
+        .cta { padding: 120px 60px; text-align: center; }
+        .cta h2 { font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 16px; }
+        .cta p { color: #666; margin-bottom: 40px; }
+        .btn {
+            display: inline-block; padding: 16px 50px; border: 1px solid #000;
+            font-family: 'Raleway', sans-serif; font-size: 0.8rem;
+            letter-spacing: 3px; text-transform: uppercase; transition: all 0.4s ease;
+        }
+        .btn:hover { background: #000; color: #fff; }
+
+        /* Footer */
+        footer { padding: 60px; text-align: center; border-top: 1px solid #eee; }
+        footer .foot-logo {
+            font-family: 'Bodoni Moda', serif; font-size: 1.2rem;
+            letter-spacing: 3px; margin-bottom: 20px;
+        }
+        footer p { font-size: 0.75rem; color: #999; letter-spacing: 2px; }
+        footer .foot-links { margin-bottom: 20px; display: flex; justify-content: center; gap: 30px; }
+        footer .foot-links a { font-size: 0.75rem; color: #666; letter-spacing: 1px; transition: color 0.3s; }
+        footer .foot-links a:hover { color: #000; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .nav-links {
+                display: none; position: absolute; top: 70px; left: 0; right: 0;
+                background: #fff; flex-direction: column; padding: 30px; gap: 20px;
+                border-bottom: 1px solid #eee; z-index: 100;
+            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .page-header { padding: 80px 30px 50px; }
+            .page-header h1 { font-size: 2rem; }
+            .services { padding: 20px 30px 60px; }
+            .service-card { grid-template-columns: 1fr; gap: 30px; padding: 50px 0; }
+            .service-card.reverse { direction: ltr; }
+            .service-img { height: 250px; }
+            .process { padding: 80px 30px; }
+            .process-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .cta { padding: 80px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Минимал Арх</a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header fade-in">
+        <h1>Услуги</h1>
+        <div class="thin-line"></div>
+        <p>Комплексни архитектурни и строителни решения с минималистичен подход</p>
+    </div>
+
+    <section class="services">
+        <div class="service-card fade-in">
+            <div class="service-info">
+                <div class="service-num">01</div>
+                <h3>Архитектурно проектиране</h3>
+                <div class="s-line"></div>
+                <p>Създаваме архитектурни проекти, които съчетават функционалност и естетика. Всеки проект е уникален отговор на нуждите на клиента и характера на средата.</p>
+                <div class="service-features">
+                    <span>Идейни проекти</span>
+                    <span>3D визуализация</span>
+                    <span>Работни чертежи</span>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1600607687644-aac4c3eac7f4?w=800" alt="Архитектурно проектиране" class="service-img">
+        </div>
+
+        <div class="service-card reverse fade-in fade-in-d1">
+            <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800" alt="Минималистично строителство" class="service-img">
+            <div class="service-info">
+                <div class="service-num">02</div>
+                <h3>Минималистично строителство</h3>
+                <div class="s-line"></div>
+                <p>Изграждаме сгради с чисти линии, открити пространства и премиум материали. Всеки елемент е обмислен до последния детайл.</p>
+                <div class="service-features">
+                    <span>Ново строителство</span>
+                    <span>Премиум материали</span>
+                    <span>Екологичност</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card fade-in fade-in-d2">
+            <div class="service-info">
+                <div class="service-num">03</div>
+                <h3>Реконструкции и адаптации</h3>
+                <div class="s-line"></div>
+                <p>Трансформираме съществуващи пространства, като запазваме тяхната идентичност и добавяме съвременна минималистична визия.</p>
+                <div class="service-features">
+                    <span>Обновяване</span>
+                    <span>Адаптации</span>
+                    <span>Преустройства</span>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1600566753051-f0b89df2dd90?w=800" alt="Реконструкции" class="service-img">
+        </div>
+
+        <div class="service-card reverse fade-in fade-in-d3">
+            <img src="https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=800" alt="Интериорен дизайн" class="service-img">
+            <div class="service-info">
+                <div class="service-num">04</div>
+                <h3>Интериорен дизайн</h3>
+                <div class="s-line"></div>
+                <p>Проектираме интериори, в които всеки предмет има значение. Пространства, които дишат, вдъхновяват и създават усещане за покой.</p>
+                <div class="service-features">
+                    <span>Концепция</span>
+                    <span>Обзавеждане</span>
+                    <span>Осветление</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-card fade-in fade-in-d4">
+            <div class="service-info">
+                <div class="service-num">05</div>
+                <h3>Плоски покриви и тераси</h3>
+                <div class="s-line"></div>
+                <p>Специализирани решения за плоски покриви и тераси, които разширяват жизненото пространство и добавят стойност към всяка сграда.</p>
+                <div class="service-features">
+                    <span>Зелени покриви</span>
+                    <span>Тераси</span>
+                    <span>Хидроизолация</span>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Плоски покриви" class="service-img">
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="section-title fade-in">
+            <h2>Нашият процес</h2>
+            <div class="thin-line"></div>
+        </div>
+        <div class="process-grid">
+            <div class="process-step fade-in fade-in-d1">
+                <div class="step-num">I</div>
+                <h4>Консултация</h4>
+                <p>Обсъждаме Вашата визия, нужди и бюджет в детайли.</p>
+            </div>
+            <div class="process-step fade-in fade-in-d2">
+                <div class="step-num">II</div>
+                <h4>Проектиране</h4>
+                <p>Създаваме концепция и детайлен проект с 3D визуализации.</p>
+            </div>
+            <div class="process-step fade-in fade-in-d3">
+                <div class="step-num">III</div>
+                <h4>Изграждане</h4>
+                <p>Реализираме проекта с прецизност и внимание към детайла.</p>
+            </div>
+            <div class="process-step fade-in fade-in-d4">
+                <div class="step-num">IV</div>
+                <h4>Предаване</h4>
+                <p>Предаваме завършен обект, готов да бъде обживян.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta fade-in">
+        <h2>Готови ли сте?</h2>
+        <p>Нека създадем нещо красиво заедно</p>
+        <a href="contact.html" class="btn">Поискай оферта</a>
+    </section>
+
+    <footer>
+        <div class="foot-logo">Минимал Арх</div>
+        <div class="foot-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Минимал Арх. Всички права запазени.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

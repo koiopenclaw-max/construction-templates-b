@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги - Фамилия Строй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            background: #FFFFFF;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Lora', serif;
+            color: #8B0000;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .fade-in { animation: fadeIn 1s ease forwards; }
+        .slide-up { animation: slideUp 0.8s ease forwards; }
+        nav {
+            background: #8B0000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(139,0,0,0.3);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            color: #FFF;
+            font-family: 'Lora', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 15px 0;
+        }
+        .logo span { color: #CD5C5C; }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+        }
+        nav ul li a {
+            color: #FFF;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: #B22222;
+        }
+        .page-hero {
+            position: relative;
+            height: 45vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page-hero img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .page-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139,0,0,0.8), rgba(178,34,34,0.6));
+        }
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFF;
+            text-align: center;
+        }
+        .page-hero-content h1 {
+            font-size: 2.8rem;
+            color: #FFF;
+        }
+        .page-hero-content p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            color: #CD5C5C;
+        }
+        section { padding: 80px 20px; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        .section-title .line {
+            width: 60px;
+            height: 3px;
+            background: #B22222;
+            margin: 15px auto;
+        }
+        .section-title p { color: #666; }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .service-card {
+            background: #FFF;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(139,0,0,0.08);
+            transition: all 0.4s;
+            border: 1px solid #f0e0e0;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(139,0,0,0.18);
+        }
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .service-card:hover .service-img img {
+            transform: scale(1.08);
+        }
+        .service-body {
+            padding: 25px;
+        }
+        .service-body .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        .service-body h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .service-body p {
+            color: #666;
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        .service-features {
+            list-style: none;
+        }
+        .service-features li {
+            padding: 5px 0;
+            color: #555;
+            font-size: 0.88rem;
+            padding-left: 20px;
+            position: relative;
+        }
+        .service-features li::before {
+            content: "\2713";
+            position: absolute;
+            left: 0;
+            color: #B22222;
+            font-weight: 700;
+        }
+        .cta-section {
+            background: #8B0000;
+            text-align: center;
+            color: #FFF;
+            padding: 60px 20px;
+        }
+        .cta-section h2 {
+            color: #FFF;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .cta-section p {
+            color: #CD5C5C;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: #FFF;
+            color: #8B0000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #CD5C5C;
+            color: #FFF;
+            transform: translateY(-2px);
+        }
+        .process { background: #FFF5F5; }
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+        .step {
+            padding: 25px;
+        }
+        .step-num {
+            width: 50px;
+            height: 50px;
+            background: #B22222;
+            color: #FFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+        }
+        .step h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .step p {
+            color: #666;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .guarantee {
+            background: #FFF;
+        }
+        .guarantee-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            text-align: center;
+        }
+        .guarantee-item {
+            padding: 30px;
+            border: 2px solid #f0e0e0;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        .guarantee-item:hover {
+            border-color: #B22222;
+            transform: translateY(-5px);
+        }
+        .guarantee-item .g-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .guarantee-item h3 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .guarantee-item p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        footer {
+            background: #8B0000;
+            color: #FFF;
+            padding: 40px 20px;
+        }
+        footer .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        footer h4 {
+            color: #FFF;
+            margin-bottom: 15px;
+        }
+        footer p, footer a {
+            color: #CD5C5C;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+        footer a:hover { color: #FFF; }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: #CD5C5C;
+            font-size: 0.85rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hamburger {
+            display: none;
+            color: #FFF;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #8B0000;
+            }
+            nav ul.open { display: flex; }
+            .page-hero-content h1 { font-size: 2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .process-steps { grid-template-columns: 1fr 1fr; }
+            .guarantee-grid { grid-template-columns: 1fr; }
+            footer .footer-inner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Фамилия <span>Строй</span></div>
+            <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">&#9776;</button>
+            <ul>
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="services.html" class="active">Услуги</a></li>
+                <li><a href="portfolio.html">Портфолио</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200" alt="Интериор">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content fade-in">
+            <h1>Нашите услуги</h1>
+            <p>Пълен спектър строителни решения за вашия дом</p>
+        </div>
+    </div>
+
+    <section>
+        <div class="container">
+            <div class="section-title">
+                <h2>Какво предлагаме</h2>
+                <div class="line"></div>
+                <p>Всяка услуга е изпълнена с грижа и внимание към детайла</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card slide-up">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800" alt="Жилищно строителство">
+                    </div>
+                    <div class="service-body">
+                        <div class="icon">&#127968;</div>
+                        <h3>Жилищно строителство</h3>
+                        <p>Изграждаме жилищни сгради от основите до ключа. Многофамилни сгради с модерен дизайн и енергийна ефективност.</p>
+                        <ul class="service-features">
+                            <li>Проектиране и разрешителни</li>
+                            <li>Груб и довършителен строеж</li>
+                            <li>Енергийно ефективни решения</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card slide-up" style="animation-delay:0.1s">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Семейни къщи">
+                    </div>
+                    <div class="service-body">
+                        <div class="icon">&#127969;</div>
+                        <h3>Семейни къщи</h3>
+                        <p>Строим еднофамилни и двуфамилни къщи, проектирани специално за нуждите на вашето семейство.</p>
+                        <ul class="service-features">
+                            <li>Индивидуален проект</li>
+                            <li>Традиционни и модерни стилове</li>
+                            <li>Дворно пространство и озеленяване</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card slide-up" style="animation-delay:0.2s">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1600573472550-8090b5e0745e?w=800" alt="Ремонти">
+                    </div>
+                    <div class="service-body">
+                        <div class="icon">&#128296;</div>
+                        <h3>Ремонти и обновяване</h3>
+                        <p>Обновяваме вашия дом с внимание и грижа. От частичен ремонт до цялостна реконструкция.</p>
+                        <ul class="service-features">
+                            <li>Цялостен ремонт на апартаменти</li>
+                            <li>Реконструкция на стари сгради</li>
+                            <li>Смяна на ВиК и електро инсталации</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card slide-up" style="animation-delay:0.3s">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c0?w=800" alt="Интериорен дизайн">
+                    </div>
+                    <div class="service-body">
+                        <div class="icon">&#127912;</div>
+                        <h3>Интериорен дизайн</h3>
+                        <p>Създаваме уютни и функционални интериори, които отразяват характера на вашето семейство.</p>
+                        <ul class="service-features">
+                            <li>3D визуализация</li>
+                            <li>Подбор на материали и мебели</li>
+                            <li>Осветление и декорация</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="service-card slide-up" style="animation-delay:0.4s">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800" alt="Покривни ремонти">
+                    </div>
+                    <div class="service-body">
+                        <div class="icon">&#127959;</div>
+                        <h3>Покривни ремонти</h3>
+                        <p>Ремонт и подмяна на покриви с гаранция за качество. Хидроизолация и нови покривни конструкции.</p>
+                        <ul class="service-features">
+                            <li>Ремонт на течове</li>
+                            <li>Топло- и хидроизолация</li>
+                            <li>Нови покривни конструкции</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="process">
+        <div class="container">
+            <div class="section-title">
+                <h2>Нашият процес</h2>
+                <div class="line"></div>
+            </div>
+            <div class="process-steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h3>Консултация</h3>
+                    <p>Безплатна среща, на която обсъждаме вашите мечти и нужди за идеалния дом.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h3>Проектиране</h3>
+                    <p>Изготвяме индивидуален проект и детайлна оферта с точни срокове.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h3>Строителство</h3>
+                    <p>Изпълняваме проекта с грижа, прецизност и прозрачна комуникация.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h3>Предаване</h3>
+                    <p>Предаваме готовия обект с пълна гаранция и цялата документация.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="guarantee">
+        <div class="container">
+            <div class="section-title">
+                <h2>Нашите гаранции</h2>
+                <div class="line"></div>
+            </div>
+            <div class="guarantee-grid">
+                <div class="guarantee-item slide-up">
+                    <div class="g-icon">&#128176;</div>
+                    <h3>Фиксирана цена</h3>
+                    <p>Без скрити разходи и неочаквани допълнения. Цената в договора е окончателна.</p>
+                </div>
+                <div class="guarantee-item slide-up" style="animation-delay:0.1s">
+                    <div class="g-icon">&#128197;</div>
+                    <h3>Точни срокове</h3>
+                    <p>Спазваме всеки краен срок. При забавяне от наша страна - компенсация за клиента.</p>
+                </div>
+                <div class="guarantee-item slide-up" style="animation-delay:0.2s">
+                    <div class="g-icon">&#128736;</div>
+                    <h3>10 години гаранция</h3>
+                    <p>Предоставяме 10-годишна гаранция за конструкцията и 5 години за довършителни работи.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Готови ли сте да построим вашия мечтан дом?</h2>
+        <p>Свържете се с нас за безплатна консултация и оферта</p>
+        <a href="contact.html" class="btn">Поискай оферта</a>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <h4>Фамилия Строй</h4>
+                <p>Семейна строителна компания с традиции от 1988 година.</p>
+            </div>
+            <div>
+                <h4>Навигация</h4>
+                <p><a href="index.html">Начало</a></p>
+                <p><a href="about.html">За нас</a></p>
+                <p><a href="services.html">Услуги</a></p>
+                <p><a href="portfolio.html">Портфолио</a></p>
+                <p><a href="contact.html">Контакти</a></p>
+            </div>
+            <div>
+                <h4>Контакти</h4>
+                <p>ул. Никола Пиколо 15, Велико Търново</p>
+                <p>Тел: +359 62 600 123</p>
+                <p>Email: office@familiastroy.bg</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Фамилия Строй. Всички права запазени.</p>
+        </div>
+    </footer>
+</body>
+</html>

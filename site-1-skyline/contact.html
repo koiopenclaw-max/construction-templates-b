@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти — Скайлайн Строй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #1a1a2e; color: #e0e0e0; }
+        h1, h2, h3, h4 { font-family: 'Syne', sans-serif; }
+        a { text-decoration: none; color: inherit; }
+        nav { position: fixed; top: 0; width: 100%; background: rgba(22, 33, 62, 0.95); backdrop-filter: blur(10px); z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 800; background: linear-gradient(135deg, #ff6b35, #d946ef, #f472b6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { color: #ccc; font-size: 0.95rem; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: #ff6b35; }
+        .menu-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        /* Page Header */
+        .page-header { padding: 8rem 2rem 4rem; text-align: center; background: linear-gradient(135deg, rgba(255,107,53,0.15), rgba(217,70,239,0.1)); }
+        .page-header h1 { font-size: 2.8rem; color: #fff; margin-bottom: 0.5rem; animation: fadeInUp 0.8s ease; }
+        .page-header p { color: #999; font-size: 1.1rem; animation: fadeInUp 0.8s ease 0.2s both; }
+        /* Contact Layout */
+        .contact-section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; display: grid; grid-template-columns: 1fr 380px; gap: 3rem; }
+        /* Form */
+        .form-card { background: #16213e; border-radius: 16px; padding: 2.5rem; border: 1px solid rgba(255,107,53,0.12); animation: fadeInUp 0.8s ease; }
+        .form-card h2 { color: #fff; font-size: 1.6rem; margin-bottom: 0.5rem; }
+        .form-card .form-subtitle { color: #999; margin-bottom: 2rem; font-size: 0.95rem; }
+        .form-group { margin-bottom: 1.3rem; }
+        .form-group label { display: block; color: #ccc; font-size: 0.9rem; margin-bottom: 0.4rem; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.8rem 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,107,53,0.15); border-radius: 10px; color: #e0e0e0; font-family: 'Inter', sans-serif; font-size: 0.95rem; transition: border-color 0.3s, box-shadow 0.3s; outline: none; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #ff6b35; box-shadow: 0 0 0 3px rgba(255,107,53,0.15); }
+        .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+        .form-group select option { background: #16213e; color: #e0e0e0; }
+        .form-group textarea { resize: vertical; min-height: 100px; }
+        .range-group { position: relative; }
+        .range-value { text-align: right; color: #ff6b35; font-weight: 600; font-size: 0.95rem; margin-top: 0.3rem; }
+        .form-group input[type="range"] { padding: 0; background: transparent; border: none; -webkit-appearance: none; height: 6px; }
+        .form-group input[type="range"]::-webkit-slider-track { height: 6px; border-radius: 3px; background: linear-gradient(135deg, #ff6b35, #d946ef); }
+        .form-group input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #fff; cursor: pointer; margin-top: -7px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+        .form-group input[type="range"]::-moz-range-track { height: 6px; border-radius: 3px; background: linear-gradient(135deg, #ff6b35, #d946ef); border: none; }
+        .form-group input[type="range"]::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; cursor: pointer; border: none; }
+        .btn-submit { width: 100%; padding: 1rem; border: none; border-radius: 50px; background: linear-gradient(135deg, #ff6b35, #d946ef); color: #fff; font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+        .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(255,107,53,0.4); }
+        /* Sidebar */
+        .contact-sidebar { animation: fadeInUp 0.8s ease 0.2s both; }
+        .info-card { background: #16213e; border-radius: 16px; padding: 2rem; border: 1px solid rgba(255,107,53,0.12); margin-bottom: 1.5rem; }
+        .info-card h3 { color: #ff6b35; font-size: 1.1rem; margin-bottom: 1.2rem; }
+        .info-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.2rem; }
+        .info-icon { font-size: 1.3rem; min-width: 28px; text-align: center; }
+        .info-text p { color: #aaa; font-size: 0.9rem; line-height: 1.5; }
+        .info-text strong { color: #ddd; font-size: 0.9rem; display: block; margin-bottom: 0.2rem; }
+        .hours-list { list-style: none; }
+        .hours-list li { display: flex; justify-content: space-between; padding: 0.4rem 0; color: #aaa; font-size: 0.88rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .hours-list li span:last-child { color: #ccc; }
+        /* Map placeholder */
+        .map-area { background: #16213e; border-radius: 16px; overflow: hidden; border: 1px solid rgba(255,107,53,0.12); height: 220px; display: flex; align-items: center; justify-content: center; }
+        .map-area iframe { width: 100%; height: 100%; border: none; filter: grayscale(0.5) brightness(0.8); }
+        /* FAQ Section */
+        .faq { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+        .faq-title { font-size: 2rem; color: #fff; text-align: center; margin-bottom: 2rem; }
+        .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .faq-item { background: #16213e; border: 1px solid rgba(255,107,53,0.12); border-radius: 12px; padding: 1.5rem; transition: border-color 0.3s; animation: fadeInUp 0.8s ease both; }
+        .faq-item:nth-child(2) { animation-delay: 0.1s; }
+        .faq-item:nth-child(3) { animation-delay: 0.2s; }
+        .faq-item:nth-child(4) { animation-delay: 0.3s; }
+        .faq-item:hover { border-color: rgba(255,107,53,0.3); }
+        .faq-item h4 { color: #ff6b35; font-size: 0.95rem; margin-bottom: 0.5rem; }
+        .faq-item p { color: #aaa; font-size: 0.88rem; line-height: 1.6; }
+        /* Footer */
+        footer { background: #0d1117; padding: 3rem 2rem; text-align: center; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; text-align: left; margin-bottom: 2rem; }
+        .footer-col h4 { color: #ff6b35; margin-bottom: 1rem; }
+        .footer-col p, .footer-col a { color: #888; font-size: 0.9rem; line-height: 1.8; display: block; }
+        .footer-col a:hover { color: #ff6b35; }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; color: #666; font-size: 0.85rem; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 768px) {
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; width: 100%; background: #16213e; padding: 1rem 2rem; }
+            .nav-links.open { display: flex; }
+            .menu-toggle { display: block; }
+            .contact-section { grid-template-columns: 1fr; }
+            .footer-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">СКАЙЛАЙН СТРОЙ</a>
+        <button class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')">&#9776;</button>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html" class="active">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-header">
+        <h1>Поискай оферта</h1>
+        <p>Свържете се с нас за безплатна консултация по вашия проект</p>
+    </section>
+
+    <section class="contact-section">
+        <div class="form-card">
+            <h2>Изпратете запитване</h2>
+            <p class="form-subtitle">Попълнете формата и ще се свържем с вас до 24 часа</p>
+            <form onsubmit="event.preventDefault(); alert('Благодарим за запитването! Ще се свържем с вас скоро.');">
+                <div class="form-group">
+                    <label for="name">Име *</label>
+                    <input type="text" id="name" name="name" placeholder="Вашето име и фамилия" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Телефон *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+359 888 123 456" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" placeholder="vashiat@email.bg" required>
+                </div>
+                <div class="form-group">
+                    <label for="type">Тип обект</label>
+                    <select id="type" name="type">
+                        <option value="">Изберете тип обект</option>
+                        <option value="residential">Жилищна сграда</option>
+                        <option value="commercial">Търговски обект</option>
+                        <option value="office">Офис сграда</option>
+                        <option value="industrial">Индустриален обект</option>
+                        <option value="other">Друго</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание на проекта</label>
+                    <textarea id="description" name="description" placeholder="Опишете накратко вашия проект — местоположение, площ, специфични изисквания..."></textarea>
+                </div>
+                <div class="form-group range-group">
+                    <label for="budget">Бюджет</label>
+                    <input type="range" id="budget" name="budget" min="10000" max="500000" step="10000" value="100000" oninput="document.getElementById('budgetVal').textContent = this.value >= 500000 ? '500 000лв+' : new Intl.NumberFormat('bg-BG').format(this.value) + ' лв'">
+                    <div class="range-value" id="budgetVal">100 000 лв</div>
+                </div>
+                <button type="submit" class="btn-submit">Изпратете запитване</button>
+            </form>
+        </div>
+
+        <div class="contact-sidebar">
+            <div class="info-card">
+                <h3>Информация за контакт</h3>
+                <div class="info-item">
+                    <div class="info-icon">&#128205;</div>
+                    <div class="info-text">
+                        <strong>Адрес</strong>
+                        <p>бул. Витоша 120, ет. 5<br>София 1000, България</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">&#128222;</div>
+                    <div class="info-text">
+                        <strong>Телефон</strong>
+                        <p>+359 2 987 6543<br>+359 888 123 456</p>
+                    </div>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">&#9993;</div>
+                    <div class="info-text">
+                        <strong>Email</strong>
+                        <p>info@skylinestroy.bg<br>office@skylinestroy.bg</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-card">
+                <h3>Работно време</h3>
+                <ul class="hours-list">
+                    <li><span>Понеделник - Петък</span><span>08:00 - 18:00</span></li>
+                    <li><span>Събота</span><span>09:00 - 14:00</span></li>
+                    <li><span>Неделя</span><span>Затворено</span></li>
+                </ul>
+            </div>
+            <div class="map-area">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2932.5584!2d23.3219!3d42.6884!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDQxJzE4LjIiTiAyM8KwMTknMTguOCJF!5e0!3m2!1sbg!2sbg!4v1" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h2 class="faq-title">Често задавани въпроси</h2>
+        <div class="faq-grid">
+            <div class="faq-item">
+                <h4>Колко време отнема изграждането на жилищна сграда?</h4>
+                <p>Средният срок за изграждане на жилищна сграда е между 12 и 18 месеца,
+                    в зависимост от мащаба и сложността на проекта.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Предлагате ли безплатна консултация?</h4>
+                <p>Да, първоначалната консултация е напълно безплатна. Ще обсъдим вашите
+                    нужди и ще ви представим предварителна оценка.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Какви гаранции предоставяте?</h4>
+                <p>Предоставяме пълна гаранция за конструкцията — 10 години, и гаранция
+                    за довършителни работи — 5 години.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Работите ли извън София?</h4>
+                <p>Да, изпълняваме проекти в цялата страна. Имаме офиси в София и Пловдив
+                    и мобилни екипи за всяка точка в България.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Скайлайн Строй</h4>
+                <p>Водеща строителна компания в София, специализирана в градско строителство и модерни жилищни комплекси.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Навигация</h4>
+                <a href="index.html">Начало</a><a href="about.html">За нас</a><a href="services.html">Услуги</a><a href="portfolio.html">Портфолио</a><a href="contact.html">Контакти</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакти</h4>
+                <p>бул. Витоша 120, София 1000</p><p>+359 2 987 6543</p><p>info@skylinestroy.bg</p>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Скайлайн Строй. Всички права запазени.</div>
+    </footer>
+</body>
+</html>

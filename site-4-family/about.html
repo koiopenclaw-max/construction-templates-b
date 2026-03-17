@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>За нас - Фамилия Строй</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #333;
+            background: #FFFFFF;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Lora', serif;
+            color: #8B0000;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideRight {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .fade-in { animation: fadeIn 1s ease forwards; }
+        .slide-up { animation: slideUp 0.8s ease forwards; }
+        .slide-right { animation: slideRight 0.8s ease forwards; }
+        nav {
+            background: #8B0000;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(139,0,0,0.3);
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .logo {
+            color: #FFF;
+            font-family: 'Lora', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 15px 0;
+        }
+        .logo span { color: #CD5C5C; }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 5px;
+        }
+        nav ul li a {
+            color: #FFF;
+            text-decoration: none;
+            padding: 20px 15px;
+            display: block;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+        nav ul li a:hover,
+        nav ul li a.active {
+            background: #B22222;
+        }
+        .page-hero {
+            position: relative;
+            height: 45vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .page-hero img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .page-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(139,0,0,0.8), rgba(178,34,34,0.6));
+        }
+        .page-hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFF;
+            text-align: center;
+        }
+        .page-hero-content h1 {
+            font-size: 2.8rem;
+            color: #FFF;
+        }
+        .page-hero-content p {
+            font-size: 1.1rem;
+            margin-top: 10px;
+            color: #CD5C5C;
+        }
+        section { padding: 80px 20px; }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .history {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .history img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.15);
+        }
+        .history-text h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .history-text p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .bg-warm { background: #FFF5F5; }
+        .values-section { text-align: center; }
+        .values-section h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .values-section .line {
+            width: 60px;
+            height: 3px;
+            background: #B22222;
+            margin: 15px auto 40px;
+        }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        .value-card {
+            background: #FFF;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(139,0,0,0.08);
+            transition: all 0.3s;
+            border-top: 3px solid #B22222;
+        }
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(139,0,0,0.15);
+        }
+        .value-card h3 { margin-bottom: 10px; }
+        .value-card p {
+            color: #666;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: #CD5C5C;
+            transform: translateX(-50%);
+        }
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 40px 10px 0;
+            width: 50%;
+            position: relative;
+        }
+        .timeline-item:nth-child(even) {
+            justify-content: flex-start;
+            margin-left: 50%;
+            padding: 10px 0 10px 40px;
+        }
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: #B22222;
+            border-radius: 50%;
+            position: absolute;
+            right: -8px;
+            top: 15px;
+            border: 3px solid #FFF;
+            box-shadow: 0 0 0 2px #B22222;
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -8px;
+            right: auto;
+        }
+        .timeline-content {
+            background: #FFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 3px 15px rgba(139,0,0,0.08);
+        }
+        .timeline-content h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+        .timeline-content p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .team-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        .team-line {
+            width: 60px;
+            height: 3px;
+            background: #B22222;
+            margin: 0 auto 50px;
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .team-card {
+            text-align: center;
+            background: #FFF;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(139,0,0,0.08);
+            transition: all 0.3s;
+        }
+        .team-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(139,0,0,0.15);
+        }
+        .team-photo {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #CD5C5C, #8B0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF;
+            font-size: 4rem;
+        }
+        .team-card h3 {
+            margin: 20px 0 5px;
+            font-size: 1.2rem;
+        }
+        .team-card .role {
+            color: #B22222;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .team-card p.bio {
+            color: #666;
+            font-size: 0.85rem;
+            padding: 10px 20px 25px;
+            line-height: 1.6;
+        }
+        .community {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        .community img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(139,0,0,0.15);
+        }
+        .community-text h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .community-text p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        footer {
+            background: #8B0000;
+            color: #FFF;
+            padding: 40px 20px;
+        }
+        footer .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        footer h4 {
+            color: #FFF;
+            margin-bottom: 15px;
+        }
+        footer p, footer a {
+            color: #CD5C5C;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            text-decoration: none;
+        }
+        footer a:hover { color: #FFF; }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            color: #CD5C5C;
+            font-size: 0.85rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .hamburger {
+            display: none;
+            color: #FFF;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #8B0000;
+            }
+            nav ul.open { display: flex; }
+            .page-hero-content h1 { font-size: 2rem; }
+            .history,
+            .community { grid-template-columns: 1fr; }
+            .values-grid,
+            .team-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 50px;
+                padding-right: 0;
+            }
+            footer .footer-inner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Фамилия <span>Строй</span></div>
+            <button class="hamburger" onclick="document.querySelector('nav ul').classList.toggle('open')">&#9776;</button>
+            <ul>
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="about.html" class="active">За нас</a></li>
+                <li><a href="services.html">Услуги</a></li>
+                <li><a href="portfolio.html">Портфолио</a></li>
+                <li><a href="contact.html">Контакти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-hero">
+        <img src="https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1200" alt="Строителство">
+        <div class="page-hero-overlay"></div>
+        <div class="page-hero-content fade-in">
+            <h1>За нас</h1>
+            <p>Три поколения строителна традиция</p>
+        </div>
+    </div>
+
+    <section>
+        <div class="container">
+            <div class="history slide-up">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Семеен дом">
+                <div class="history-text">
+                    <h2>Нашата история</h2>
+                    <p>Фамилия Строй е основана през 1988 година от майстор Димитър Колев - строител с божия дар и безкрайна любов към занаята. Започнал с малък екип от петима души, дядо Димитър изградил репутацията на компанията с честност и безкомпромисно качество.</p>
+                    <p>През 2000-та година, неговият син Георги Колев поел управлението, като разширил дейността и модернизирал компанията. Днес третото поколение - внуците Димитър и Николай - продължават семейната традиция с нови технологии и същата страст.</p>
+                    <p>За над 35 години Фамилия Строй е построила повече от 1000 дома в района на Велико Търново и страната, печелейки доверието на хиляди семейства.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-warm">
+        <div class="container values-section">
+            <h2>Нашата философия</h2>
+            <div class="line"></div>
+            <div class="values-grid">
+                <div class="value-card slide-up">
+                    <h3>Семейство на първо място</h3>
+                    <p>Строим домове, в които семействата ще създават спомени. Всеки детайл е обмислен с мисъл за комфорта и уюта на вашето семейство.</p>
+                </div>
+                <div class="value-card slide-up" style="animation-delay:0.1s">
+                    <h3>Честност и прозрачност</h3>
+                    <p>Работим с ясни договори, фиксирани цени и открита комуникация. Няма скрити разходи - само честна работа.</p>
+                </div>
+                <div class="value-card slide-up" style="animation-delay:0.2s">
+                    <h3>Качество без компромис</h3>
+                    <p>Използваме само доказани материали от водещи производители. Всеки етап преминава строг контрол за качество.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="container">
+            <h2>Нашият екип</h2>
+            <div class="team-line"></div>
+            <div class="team-grid">
+                <div class="team-card slide-up">
+                    <div class="team-photo">&#128104;</div>
+                    <h3>Димитър Колев - старши</h3>
+                    <span class="role">Основател и почетен председател</span>
+                    <p class="bio">Основал компанията през 1988 г. с визията, че всяко семейство заслужава качествен дом. Над 50 години опит в строителството.</p>
+                </div>
+                <div class="team-card slide-up" style="animation-delay:0.1s">
+                    <div class="team-photo">&#128105;</div>
+                    <h3>Георги Колев</h3>
+                    <span class="role">Изпълнителен директор</span>
+                    <p class="bio">Поел управлението през 2000 г. Инженер-строител с 30+ години опит. Модернизира компанията, запазвайки семейния дух.</p>
+                </div>
+                <div class="team-card slide-up" style="animation-delay:0.2s">
+                    <div class="team-photo">&#128119;</div>
+                    <h3>Димитър и Николай Колеви</h3>
+                    <span class="role">Главни инженери</span>
+                    <p class="bio">Третото поколение. Завършили строително инженерство в УАСГ. Съчетават традиция с иновации и съвременни технологии.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-warm">
+        <div class="container">
+            <div class="community">
+                <div class="community-text">
+                    <h2>Ангажимент към общността</h2>
+                    <p>Фамилия Строй вярва в отговорността към общността. Ежегодно подкрепяме местни инициативи, дарявайки строителни материали и труд за обществени проекти.</p>
+                    <p>Участваме в обновяването на училища, детски градини и обществени сгради във Велико Търново. За нас общността не е просто клиенти - тя е нашето разширено семейство.</p>
+                    <p>Всяка година организираме безплатни консултации за млади семейства, които планират строеж на първия си дом. Вярваме, че споделянето на знания е инвестиция в бъдещето.</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Общност">
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <h4>Фамилия Строй</h4>
+                <p>Семейна строителна компания с традиции от 1988 година.</p>
+            </div>
+            <div>
+                <h4>Навигация</h4>
+                <p><a href="index.html">Начало</a></p>
+                <p><a href="about.html">За нас</a></p>
+                <p><a href="services.html">Услуги</a></p>
+                <p><a href="portfolio.html">Портфолио</a></p>
+                <p><a href="contact.html">Контакти</a></p>
+            </div>
+            <div>
+                <h4>Контакти</h4>
+                <p>ул. Никола Пиколо 15, Велико Търново</p>
+                <p>Тел: +359 62 600 123</p>
+                <p>Email: office@familiastroy.bg</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Фамилия Строй. Всички права запазени.</p>
+        </div>
+    </footer>
+</body>
+</html>

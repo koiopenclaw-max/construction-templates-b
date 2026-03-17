@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакти - Дървен Майстор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cabin', sans-serif; color: #3E2723; background: #FFF8F0; }
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: #8B6914; }
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+        nav { background: #3E2723; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: 'Merriweather', serif; color: #DEB887; font-size: 1.4rem; padding: 1rem 0; font-weight: 700; }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; }
+        .nav-links a { color: #FAF0E6; padding: 0.6rem 1rem; border-radius: 4px; transition: background 0.3s, color 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: #8B6914; color: #FFF; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 28px; height: 3px; background: #DEB887; border-radius: 2px; }
+
+        .page-hero { background: linear-gradient(rgba(62,39,35,0.8), rgba(62,39,35,0.8)), url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1400') center/cover; padding: 6rem 5%; text-align: center; color: #FFF; animation: fadeIn 1s ease; }
+        .page-hero h1 { font-size: 3rem; color: #DEB887; margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.2rem; color: #FAF0E6; max-width: 600px; margin: 0 auto; }
+
+        .contact-section { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; }
+
+        /* Form */
+        .form-container { background: #FAF0E6; padding: 2.5rem; border-radius: 14px; border: 1px solid #DEB887; animation: slideUp 0.8s ease forwards; }
+        .form-container h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .form-container .subtitle { color: #5D4037; margin-bottom: 2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: #3E2723; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.9rem 1rem; border: 2px solid #DEB887; border-radius: 8px; font-family: 'Cabin', sans-serif; font-size: 1rem; background: #FFF8F0; color: #3E2723; transition: border-color 0.3s, box-shadow 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #8B6914; box-shadow: 0 0 0 3px rgba(139,105,20,0.15); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .range-container { position: relative; }
+        .range-value { text-align: center; font-weight: 700; color: #8B6914; font-size: 1.2rem; margin-top: 0.5rem; }
+        input[type="range"] { -webkit-appearance: none; width: 100%; height: 8px; background: #DEB887; border-radius: 4px; border: none; padding: 0; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; background: #8B6914; border-radius: 50%; cursor: pointer; transition: background 0.3s; }
+        input[type="range"]::-webkit-slider-thumb:hover { background: #A0522D; }
+        .btn-submit { display: inline-block; padding: 1rem 2.5rem; background: #8B6914; color: #FFF; border: none; border-radius: 8px; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: background 0.3s, transform 0.3s; font-family: 'Cabin', sans-serif; width: 100%; }
+        .btn-submit:hover { background: #A0522D; transform: translateY(-2px); }
+
+        /* Contact Info */
+        .contact-info { animation: slideUp 0.8s ease 0.2s both; }
+        .info-card { background: #FAF0E6; padding: 2rem; border-radius: 14px; border: 1px solid #DEB887; margin-bottom: 1.5rem; transition: transform 0.3s; }
+        .info-card:hover { transform: translateY(-4px); }
+        .info-card h3 { margin-bottom: 1rem; font-size: 1.2rem; }
+        .info-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1rem; }
+        .info-icon { font-size: 1.3rem; min-width: 30px; text-align: center; }
+        .info-item p { color: #5D4037; line-height: 1.6; }
+        .info-item a { color: #8B6914; font-weight: 600; transition: color 0.3s; }
+        .info-item a:hover { color: #A0522D; }
+
+        .hours-table { width: 100%; border-collapse: collapse; }
+        .hours-table tr { border-bottom: 1px solid #DEB887; }
+        .hours-table tr:last-child { border-bottom: none; }
+        .hours-table td { padding: 0.6rem 0; color: #5D4037; }
+        .hours-table td:last-child { text-align: right; font-weight: 600; color: #3E2723; }
+
+        .map-placeholder { background: #3E2723; border-radius: 14px; height: 200px; display: flex; align-items: center; justify-content: center; color: #DEB887; font-size: 1.1rem; }
+
+        footer { background: #3E2723; color: #FAF0E6; padding: 3rem 5%; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: #DEB887; transition: color 0.3s; }
+        .footer-links a:hover { color: #FFF; }
+        footer p { color: #A1887F; }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #3E2723; padding: 1rem; }
+            .nav-links.open { display: flex; }
+            .page-hero h1 { font-size: 2rem; }
+            .contact-section { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">Дървен Майстор</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html" class="active">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-hero">
+        <h1>Контакти</h1>
+        <p>Свържете се с нас за безплатна консултация и оферта за вашия проект</p>
+    </section>
+
+    <section class="contact-section">
+        <div class="form-container">
+            <h2>Поискай оферта</h2>
+            <p class="subtitle">Попълнете формата и ще се свържем с вас до 24 часа</p>
+            <form onsubmit="event.preventDefault(); alert('Благодарим! Ще се свържем с вас скоро.');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Име *</label>
+                        <input type="text" id="name" name="name" placeholder="Вашето име" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+359 88 888 8888" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="vashiat@email.bg">
+                </div>
+                <div class="form-group">
+                    <label for="type">Тип обект</label>
+                    <select id="type" name="type">
+                        <option value="">Изберете тип обект</option>
+                        <option value="house">Къща</option>
+                        <option value="apartment">Апартамент</option>
+                        <option value="restaurant">Ресторант</option>
+                        <option value="hotel">Хотел</option>
+                        <option value="office">Офис</option>
+                        <option value="other">Друго</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание на проекта</label>
+                    <textarea id="description" name="description" placeholder="Опишете вашия проект - какво желаете, размери, материали..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="budget">Бюджет</label>
+                    <div class="range-container">
+                        <input type="range" id="budget" name="budget" min="5000" max="200000" step="5000" value="50000" oninput="document.getElementById('budgetValue').textContent = this.value >= 200000 ? '200,000лв+' : new Intl.NumberFormat('bg-BG').format(this.value) + 'лв'">
+                        <div class="range-value" id="budgetValue">50,000лв</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Изпрати запитване</button>
+            </form>
+        </div>
+
+        <div class="contact-info">
+            <div class="info-card">
+                <h3>Данни за контакт</h3>
+                <div class="info-item">
+                    <div class="info-icon">&#128205;</div>
+                    <p>ул. "Гладстон" 45<br>гр. Пловдив 4000</p>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">&#128222;</div>
+                    <p><a href="tel:+35932654321">+359 32 654 321</a><br><a href="tel:+359888123456">+359 888 123 456</a></p>
+                </div>
+                <div class="info-item">
+                    <div class="info-icon">&#9993;</div>
+                    <p><a href="mailto:info@darvenmaster.bg">info@darvenmaster.bg</a></p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3>Работно време</h3>
+                <table class="hours-table">
+                    <tr><td>Понеделник - Петък</td><td>08:00 - 18:00</td></tr>
+                    <tr><td>Събота</td><td>09:00 - 14:00</td></tr>
+                    <tr><td>Неделя</td><td>Почивен ден</td></tr>
+                </table>
+            </div>
+
+            <div class="info-card">
+                <h3>Посетете работилницата</h3>
+                <p style="color: #5D4037; line-height: 1.7; margin-bottom: 1rem;">Заповядайте в нашата работилница, за да видите как работим и да обсъдим вашия проект на място.</p>
+            </div>
+
+            <div class="map-placeholder">
+                &#128506; гр. Пловдив, ул. "Гладстон" 45
+            </div>
+        </div>
+    </section>
+
+    <section style="padding: 4rem 5%; background: #FAF0E6;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-family: 'Merriweather', serif; color: #8B6914; font-size: 2rem; text-align: center; margin-bottom: 2.5rem;">Често задавани въпроси</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                <div style="background: #FFF8F0; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #8B6914;">
+                    <h4 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1rem;">Колко време отнема изпълнението на проект?</h4>
+                    <p style="color: #5D4037; line-height: 1.7;">Зависи от мащаба - от 2 седмици за мебели до 3-6 месеца за цялостни дървени конструкции.</p>
+                </div>
+                <div style="background: #FFF8F0; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #8B6914;">
+                    <h4 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1rem;">Какви видове дърво използвате?</h4>
+                    <p style="color: #5D4037; line-height: 1.7;">Работим с дъб, бук, орех, ясен, бор и смърч - винаги сертифицирана дървесина.</p>
+                </div>
+                <div style="background: #FFF8F0; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #8B6914;">
+                    <h4 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1rem;">Предлагате ли гаранция?</h4>
+                    <p style="color: #5D4037; line-height: 1.7;">Да, всички наши изделия и конструкции идват с гаранция от 5 до 10 години.</p>
+                </div>
+                <div style="background: #FFF8F0; padding: 1.5rem; border-radius: 10px; border-left: 4px solid #8B6914;">
+                    <h4 style="font-family: 'Merriweather', serif; color: #8B6914; margin-bottom: 0.5rem; font-size: 1rem;">Работите ли извън Пловдив?</h4>
+                    <p style="color: #5D4037; line-height: 1.7;">Да, работим в цяла България. Транспортът и монтажът са включени в офертата.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Дървен Майстор. Всички права запазени. гр. Пловдив</p>
+    </footer>
+</body>
+</html>

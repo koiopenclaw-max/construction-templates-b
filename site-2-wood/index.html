@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дървен Майстор - Майсторство от дърво и душа</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cabin', sans-serif; color: #3E2723; background: #FFF8F0; }
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: #8B6914; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 1s ease forwards; }
+        .slide-up { animation: slideUp 0.8s ease forwards; }
+
+        /* Navigation */
+        nav { background: #3E2723; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: 'Merriweather', serif; color: #DEB887; font-size: 1.4rem; padding: 1rem 0; font-weight: 700; }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; }
+        .nav-links a { color: #FAF0E6; padding: 0.6rem 1rem; border-radius: 4px; transition: background 0.3s, color 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: #8B6914; color: #FFF; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 28px; height: 3px; background: #DEB887; border-radius: 2px; transition: 0.3s; }
+
+        /* Hero */
+        .hero { position: relative; height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+        .hero-bg { position: absolute; inset: 0; background: url('https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=1400') center/cover; }
+        .hero-overlay { position: absolute; inset: 0; background: rgba(62,39,35,0.7); }
+        .hero-content { position: relative; z-index: 2; color: #FFF; padding: 2rem; animation: fadeIn 1.2s ease; }
+        .hero-content h1 { font-size: 3.5rem; margin-bottom: 1rem; color: #DEB887; }
+        .hero-content p { font-size: 1.5rem; margin-bottom: 2rem; color: #FAF0E6; }
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: #8B6914; color: #FFF; border-radius: 6px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s, transform 0.3s; }
+        .btn:hover { background: #A0522D; transform: translateY(-2px); }
+
+        /* Features */
+        .features { padding: 5rem 5%; background: #FAF0E6; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 3rem; }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto; }
+        .feature-card { background: #FFF8F0; padding: 2.5rem; border-radius: 12px; text-align: center; border: 2px solid #DEB887; transition: transform 0.3s, box-shadow 0.3s; animation: slideUp 0.8s ease forwards; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(139,105,20,0.15); }
+        .feature-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .feature-card h3 { margin-bottom: 0.8rem; font-size: 1.3rem; }
+        .feature-card p { color: #5D4037; line-height: 1.7; }
+
+        /* Stats */
+        .stats { padding: 4rem 5%; background: #3E2723; text-align: center; }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 900px; margin: 0 auto; }
+        .stat-item h2 { font-size: 3rem; color: #DEB887; margin-bottom: 0.5rem; }
+        .stat-item p { color: #FAF0E6; font-size: 1.1rem; }
+
+        /* Testimonials */
+        .testimonials { padding: 5rem 5%; max-width: 1100px; margin: 0 auto; }
+        .testimonial-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        .testimonial { background: #FAF0E6; padding: 2rem; border-radius: 12px; border-left: 5px solid #8B6914; animation: slideUp 0.8s ease forwards; }
+        .testimonial p { font-style: italic; line-height: 1.8; color: #5D4037; margin-bottom: 1rem; }
+        .testimonial .author { font-weight: 700; color: #8B6914; }
+
+        /* Footer */
+        footer { background: #3E2723; color: #FAF0E6; padding: 3rem 5%; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: #DEB887; transition: color 0.3s; }
+        .footer-links a:hover { color: #FFF; }
+        footer p { color: #A1887F; }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #3E2723; padding: 1rem; }
+            .nav-links.open { display: flex; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .features-grid, .stats-grid, .testimonial-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">Дървен Майстор</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Дървен Майстор</h1>
+            <p>Майсторство от дърво и душа</p>
+            <a href="contact.html" class="btn">Поискай оферта</a>
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">Защо да изберете нас</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">&#9998;</div>
+                <h3>Ръчна изработка</h3>
+                <p>Всеки детайл е изработен с внимание и прецизност от опитни майстори дърводелци.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#127795;</div>
+                <h3>Естествени материали</h3>
+                <p>Използваме само висококачествена дървесина и натурални материали за всеки проект.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">&#10024;</div>
+                <h3>Уникален дизайн</h3>
+                <p>Създаваме индивидуални решения, съобразени с вашия стил и пространство.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>20+</h2>
+                <p>Години опит</p>
+            </div>
+            <div class="stat-item">
+                <h2>500+</h2>
+                <p>Завършени проекта</p>
+            </div>
+            <div class="stat-item">
+                <h2>100%</h2>
+                <p>Натурални материали</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="projects-preview" style="padding: 5rem 5%; background: #FFF8F0;">
+        <h2 class="section-title">Избрани проекти</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1100px; margin: 0 auto;">
+            <div style="border-radius: 12px; overflow: hidden; position: relative; animation: slideUp 0.8s ease forwards;">
+                <img src="https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=800" alt="Дървена къща"
+                    style="width: 100%; height: 280px; object-fit: cover; transition: transform 0.5s;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(62,39,35,0.9)); padding: 1.5rem;">
+                    <h3 style="color: #DEB887; font-size: 1.1rem; margin-bottom: 0.3rem;">Дървена къща, Родопи</h3>
+                    <p style="color: #FAF0E6; font-size: 0.9rem;">Изграждане от масивен бор</p>
+                </div>
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; position: relative; animation: slideUp 0.8s ease 0.2s forwards; opacity: 0;">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Кухня от масив"
+                    style="width: 100%; height: 280px; object-fit: cover; transition: transform 0.5s;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(62,39,35,0.9)); padding: 1.5rem;">
+                    <h3 style="color: #DEB887; font-size: 1.1rem; margin-bottom: 0.3rem;">Кухня от дъб, Пловдив</h3>
+                    <p style="color: #FAF0E6; font-size: 0.9rem;">Мебели по поръчка</p>
+                </div>
+            </div>
+            <div style="border-radius: 12px; overflow: hidden; position: relative; animation: slideUp 0.8s ease 0.4s forwards; opacity: 0;">
+                <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800" alt="Дървен интериор"
+                    style="width: 100%; height: 280px; object-fit: cover; transition: transform 0.5s;">
+                <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(62,39,35,0.9)); padding: 1.5rem;">
+                    <h3 style="color: #DEB887; font-size: 1.1rem; margin-bottom: 0.3rem;">Интериор, София</h3>
+                    <p style="color: #FAF0E6; font-size: 0.9rem;">Цялостен дървен интериор</p>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2.5rem;">
+            <a href="portfolio.html" class="btn">Вижте всички проекти</a>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">Какво казват нашите клиенти</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial">
+                <p>&laquo;Дървен Майстор превърнаха нашата мечта за дървена къща в реалност. Качеството е невероятно!&raquo;</p>
+                <div class="author">Георги Петров, Пловдив</div>
+            </div>
+            <div class="testimonial">
+                <p>&laquo;Професионализъм и внимание към детайла. Мебелите, които направиха, са истинско произведение на изкуството.&raquo;</p>
+                <div class="author">Мария Иванова, София</div>
+            </div>
+            <div class="testimonial">
+                <p>&laquo;Реставрацията на нашия стар дървен таван беше направена перфектно. Препоръчвам горещо!&raquo;</p>
+                <div class="author">Стефан Димитров, Стара Загора</div>
+            </div>
+            <div class="testimonial">
+                <p>&laquo;Уникален подход и изключително качество. Нашата кухня от масивен дъб е мечтата ни!&raquo;</p>
+                <div class="author">Елена Колева, Пловдив</div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Дървен Майстор. Всички права запазени. гр. Пловдив</p>
+    </footer>
+</body>
+</html>

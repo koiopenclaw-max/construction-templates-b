@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>За нас — Минимал Арх</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;700&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Raleway', sans-serif; color: #1a1a1a; background: #FFFFFF; font-weight: 300; }
+        h1, h2, h3, h4 { font-family: 'Bodoni Moda', serif; font-weight: 400; }
+        a { text-decoration: none; color: inherit; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeIn 1s ease forwards; }
+        .fade-in-d1 { animation-delay: 0.2s; }
+        .fade-in-d2 { animation-delay: 0.4s; }
+        .fade-in-d3 { animation-delay: 0.6s; }
+        .fade-in-d4 { animation-delay: 0.8s; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes lineGrow { from { width: 0; } to { width: 60px; } }
+        .thin-line { width: 60px; height: 1px; background: #000; margin: 30px auto; animation: lineGrow 1s ease forwards; }
+
+        /* Nav */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 30px 60px; border-bottom: 1px solid #eee;
+        }
+        .logo { font-family: 'Bodoni Moda', serif; font-size: 1.4rem; letter-spacing: 3px; text-transform: uppercase; }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+            position: relative; transition: opacity 0.3s;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 1px; background: #000; transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { opacity: 0.5; }
+        .menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+        .menu-toggle span { width: 24px; height: 1px; background: #000; transition: 0.3s; }
+
+        /* Page Header */
+        .page-header { padding: 120px 60px 80px; text-align: center; }
+        .page-header h1 { font-size: 3rem; letter-spacing: 4px; }
+        .page-header p { color: #666; margin-top: 16px; font-size: 0.95rem; letter-spacing: 1px; }
+
+        /* Story */
+        .story {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+            padding: 80px 60px; max-width: 1200px; margin: 0 auto; align-items: center;
+        }
+        .story img {
+            width: 100%; height: 500px; object-fit: cover;
+            filter: grayscale(20%); transition: filter 0.5s ease;
+        }
+        .story img:hover { filter: grayscale(0%); }
+        .story-text h2 { font-size: 2rem; letter-spacing: 2px; margin-bottom: 16px; }
+        .story-text .s-line { width: 40px; height: 1px; background: #000; margin: 24px 0; }
+        .story-text p { color: #666; line-height: 2; font-size: 0.95rem; margin-bottom: 16px; }
+
+        /* Values */
+        .values {
+            padding: 100px 60px; max-width: 1200px; margin: 0 auto;
+        }
+        .values-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px;
+            text-align: center;
+        }
+        .value-item { padding: 40px 20px; border: 1px solid #eee; transition: border-color 0.3s; }
+        .value-item:hover { border-color: #000; }
+        .value-item h3 { font-size: 1.3rem; letter-spacing: 2px; margin-bottom: 14px; }
+        .value-item p { color: #666; line-height: 1.8; font-size: 0.9rem; }
+
+        /* Philosophy */
+        .philosophy { padding: 120px 60px; text-align: center; background: #FAFAFA; }
+        .philosophy blockquote {
+            font-family: 'Bodoni Moda', serif; font-size: 2.4rem;
+            font-style: italic; max-width: 800px; margin: 0 auto; line-height: 1.5; letter-spacing: 1px;
+        }
+        .philosophy cite {
+            display: block; margin-top: 30px; font-size: 0.8rem;
+            letter-spacing: 3px; color: #999; font-style: normal; text-transform: uppercase;
+        }
+
+        /* Team */
+        .team { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; margin-bottom: 80px; }
+        .section-title h2 { font-size: 2.4rem; letter-spacing: 3px; }
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+        .team-member { text-align: center; }
+        .team-member img {
+            width: 100%; aspect-ratio: 3/4; object-fit: cover;
+            filter: grayscale(100%); transition: filter 0.5s ease; margin-bottom: 20px;
+        }
+        .team-member:hover img { filter: grayscale(0%); }
+        .team-member h4 { font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 6px; }
+        .team-member span { font-size: 0.75rem; letter-spacing: 2px; color: #999; text-transform: uppercase; }
+
+        /* Awards */
+        .awards { padding: 100px 60px; background: #FAFAFA; }
+        .awards-list { max-width: 700px; margin: 0 auto; }
+        .award-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 24px 0; border-bottom: 1px solid #eee; transition: padding-left 0.3s ease;
+        }
+        .award-item:hover { padding-left: 10px; }
+        .award-item h4 { font-size: 1rem; letter-spacing: 1px; }
+        .award-item span { font-size: 0.8rem; color: #999; }
+
+        /* Footer */
+        footer { padding: 60px; text-align: center; border-top: 1px solid #eee; }
+        footer .foot-logo {
+            font-family: 'Bodoni Moda', serif; font-size: 1.2rem;
+            letter-spacing: 3px; margin-bottom: 20px;
+        }
+        footer p { font-size: 0.75rem; color: #999; letter-spacing: 2px; }
+        footer .foot-links { margin-bottom: 20px; display: flex; justify-content: center; gap: 30px; }
+        footer .foot-links a { font-size: 0.75rem; color: #666; letter-spacing: 1px; transition: color 0.3s; }
+        footer .foot-links a:hover { color: #000; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav { padding: 20px 30px; }
+            .nav-links {
+                display: none; position: absolute; top: 70px; left: 0; right: 0;
+                background: #fff; flex-direction: column; padding: 30px; gap: 20px;
+                border-bottom: 1px solid #eee; z-index: 100;
+            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .page-header { padding: 80px 30px 50px; }
+            .page-header h1 { font-size: 2rem; }
+            .story { grid-template-columns: 1fr; gap: 40px; padding: 40px 30px; }
+            .story img { height: 300px; }
+            .values { padding: 60px 30px; }
+            .values-grid { grid-template-columns: 1fr; gap: 30px; }
+            .philosophy { padding: 80px 30px; }
+            .philosophy blockquote { font-size: 1.5rem; }
+            .team { padding: 80px 30px; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .awards { padding: 60px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="logo">Минимал Арх</a>
+        <div class="menu-toggle" onclick="document.querySelector('.nav-links').classList.toggle('active')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <div class="page-header fade-in">
+        <h1>За нас</h1>
+        <div class="thin-line"></div>
+        <p>Архитектура, родена от яснота и простота</p>
+    </div>
+
+    <section class="story">
+        <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800" alt="Минимал Арх студио" class="fade-in">
+        <div class="story-text fade-in fade-in-d1">
+            <h2>Нашата история</h2>
+            <div class="s-line"></div>
+            <p>Основана през 2010 г. в София, Минимал Арх е архитектурно-строителна компания, която вярва, че великата архитектура се ражда от яснота и простота.</p>
+            <p>Повече от 15 години създаваме пространства, в които всеки елемент има своя цел. Нашият екип от архитекти и дизайнери работи с убеждението, че истинският лукс се крие в премахването на излишното.</p>
+            <p>От жилищни проекти до обществени сгради, ние проектираме и изграждаме с прецизност, която говори сама за себе си.</p>
+        </div>
+    </section>
+
+    <section class="values">
+        <div class="section-title fade-in">
+            <h2>Нашите ценности</h2>
+            <div class="thin-line"></div>
+        </div>
+        <div class="values-grid">
+            <div class="value-item fade-in fade-in-d1">
+                <h3>Яснота</h3>
+                <p>Всяко решение е продиктувано от логика и функция. Без компромиси, без украшения.</p>
+            </div>
+            <div class="value-item fade-in fade-in-d2">
+                <h3>Качество</h3>
+                <p>Работим само с премиум материали и доказани майстори. Резултатът е осезаем.</p>
+            </div>
+            <div class="value-item fade-in fade-in-d3">
+                <h3>Устойчивост</h3>
+                <p>Проектираме за бъдещето. Енергийна ефективност и екологичност са в основата на всеки проект.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy fade-in">
+        <blockquote>&bdquo;Вярваме в силата на простотата. Всяко пространство, което създаваме, е отражение на тази философия.&ldquo;</blockquote>
+        <cite>Арх. Петър Минев, Основател</cite>
+        <div class="thin-line"></div>
+    </section>
+
+    <section class="team">
+        <div class="section-title fade-in">
+            <h2>Нашият екип</h2>
+            <div class="thin-line"></div>
+        </div>
+        <div class="team-grid">
+            <div class="team-member fade-in fade-in-d1">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400" alt="Петър Минев">
+                <h4>Петър Минев</h4>
+                <span>Главен архитект</span>
+            </div>
+            <div class="team-member fade-in fade-in-d2">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400" alt="Мария Стоянова">
+                <h4>Мария Стоянова</h4>
+                <span>Интериорен дизайнер</span>
+            </div>
+            <div class="team-member fade-in fade-in-d3">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400" alt="Георги Димов">
+                <h4>Георги Димов</h4>
+                <span>Проектант</span>
+            </div>
+            <div class="team-member fade-in fade-in-d4">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400" alt="Елена Василева">
+                <h4>Елена Василева</h4>
+                <span>Дизайнер</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="awards">
+        <div class="section-title fade-in">
+            <h2>Награди и признание</h2>
+            <div class="thin-line"></div>
+        </div>
+        <div class="awards-list">
+            <div class="award-item fade-in"><h4>Архитектурна награда на годината</h4><span>2024</span></div>
+            <div class="award-item fade-in fade-in-d1"><h4>Най-добър минималистичен проект — Европа</h4><span>2023</span></div>
+            <div class="award-item fade-in fade-in-d2"><h4>Зелен дизайн — устойчива архитектура</h4><span>2022</span></div>
+            <div class="award-item fade-in fade-in-d3"><h4>Интериорен дизайн на годината</h4><span>2021</span></div>
+            <div class="award-item fade-in fade-in-d4"><h4>Най-иновативна строителна компания</h4><span>2019</span></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="foot-logo">Минимал Арх</div>
+        <div class="foot-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Минимал Арх. Всички права запазени.</p>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.animationPlayState = 'running';
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

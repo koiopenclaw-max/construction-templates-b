@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Портфолио - Дървен Майстор</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cabin', sans-serif; color: #3E2723; background: #FFF8F0; }
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; color: #8B6914; }
+        a { text-decoration: none; color: inherit; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        nav { background: #3E2723; padding: 0 5%; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .nav-logo { font-family: 'Merriweather', serif; color: #DEB887; font-size: 1.4rem; padding: 1rem 0; font-weight: 700; }
+        .nav-links { display: flex; list-style: none; gap: 0.5rem; }
+        .nav-links a { color: #FAF0E6; padding: 0.6rem 1rem; border-radius: 4px; transition: background 0.3s, color 0.3s; font-weight: 500; }
+        .nav-links a:hover, .nav-links a.active { background: #8B6914; color: #FFF; }
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 28px; height: 3px; background: #DEB887; border-radius: 2px; }
+
+        .page-hero { background: linear-gradient(rgba(62,39,35,0.8), rgba(62,39,35,0.8)), url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=1400') center/cover; padding: 6rem 5%; text-align: center; color: #FFF; animation: fadeIn 1s ease; }
+        .page-hero h1 { font-size: 3rem; color: #DEB887; margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.2rem; color: #FAF0E6; max-width: 600px; margin: 0 auto; }
+
+        .portfolio { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 1rem; }
+        .section-subtitle { text-align: center; color: #5D4037; margin-bottom: 3rem; font-size: 1.1rem; }
+
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .portfolio-item { background: #FAF0E6; border-radius: 14px; overflow: hidden; transition: transform 0.4s, box-shadow 0.4s; animation: scaleIn 0.7s ease forwards; border: 1px solid #DEB887; }
+        .portfolio-item:hover { transform: translateY(-10px); box-shadow: 0 18px 40px rgba(139,105,20,0.2); }
+        .portfolio-img { position: relative; overflow: hidden; height: 260px; }
+        .portfolio-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+        .portfolio-item:hover .portfolio-img img { transform: scale(1.1); }
+        .portfolio-year { position: absolute; top: 1rem; right: 1rem; background: #8B6914; color: #FFF; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+        .portfolio-body { padding: 1.5rem; }
+        .portfolio-body h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .portfolio-body .category { color: #A0522D; font-weight: 600; font-size: 0.85rem; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 1px; }
+        .portfolio-body p { color: #5D4037; line-height: 1.7; font-size: 0.95rem; }
+
+        .portfolio-item:nth-child(1) { animation-delay: 0.1s; }
+        .portfolio-item:nth-child(2) { animation-delay: 0.2s; }
+        .portfolio-item:nth-child(3) { animation-delay: 0.3s; }
+        .portfolio-item:nth-child(4) { animation-delay: 0.4s; }
+        .portfolio-item:nth-child(5) { animation-delay: 0.5s; }
+        .portfolio-item:nth-child(6) { animation-delay: 0.6s; }
+        .portfolio-item:nth-child(7) { animation-delay: 0.7s; }
+        .portfolio-item:nth-child(8) { animation-delay: 0.8s; }
+
+        .cta { padding: 5rem 5%; background: #3E2723; text-align: center; }
+        .cta h2 { font-size: 2rem; color: #DEB887; margin-bottom: 1rem; }
+        .cta p { color: #FAF0E6; margin-bottom: 2rem; font-size: 1.1rem; }
+        .btn { display: inline-block; padding: 1rem 2.5rem; background: #8B6914; color: #FFF; border-radius: 6px; font-weight: 600; font-size: 1.1rem; transition: background 0.3s, transform 0.3s; }
+        .btn:hover { background: #A0522D; transform: translateY(-2px); }
+
+        footer { background: #3E2723; color: #FAF0E6; padding: 3rem 5%; text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .footer-links a { color: #DEB887; transition: color 0.3s; }
+        .footer-links a:hover { color: #FFF; }
+        footer p { color: #A1887F; }
+
+        @media (max-width: 968px) {
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 100%; left: 0; right: 0; background: #3E2723; padding: 1rem; }
+            .nav-links.open { display: flex; }
+            .page-hero h1 { font-size: 2rem; }
+        }
+        @media (max-width: 540px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-logo">Дървен Майстор</div>
+        <div class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Начало</a></li>
+            <li><a href="about.html">За нас</a></li>
+            <li><a href="services.html">Услуги</a></li>
+            <li><a href="portfolio.html" class="active">Портфолио</a></li>
+            <li><a href="contact.html">Контакти</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-hero">
+        <h1>Портфолио</h1>
+        <p>Избрани проекти, които показват нашето майсторство и отдаденост</p>
+    </section>
+
+    <section class="portfolio">
+        <h2 class="section-title">Нашите проекти</h2>
+        <p class="section-subtitle">Всеки проект е уникален и изработен с любов към дървото</p>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1584738766473-61c083514bf4?w=800" alt="Дървена къща Родопи">
+                    <span class="portfolio-year">2024</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Дървени къщи</div>
+                    <h3>Къща в Родопите</h3>
+                    <p>Цялостно изграждане на дървена къща от бор с панорамна гледка. 120 кв.м. жилищна площ.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800" alt="Интериор апартамент">
+                    <span class="portfolio-year">2024</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Интериорен дизайн</div>
+                    <h3>Дървен интериор в Пловдив</h3>
+                    <p>Пълно обновяване на апартамент с дървени облицовки, паркет от дъб и мебели по поръчка.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800" alt="Кухня от масив">
+                    <span class="portfolio-year">2023</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Мебели по поръчка</div>
+                    <h3>Кухня от масивен дъб</h3>
+                    <p>Ръчно изработена кухня от масивен дъб с каменен плот. Модерен дизайн с топли тонове.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800" alt="Дневна с дървена облицовка">
+                    <span class="portfolio-year">2023</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Интериорен дизайн</div>
+                    <h3>Дневна зона с дървен акцент</h3>
+                    <p>Декоративна дървена стена и таван с вградено осветление. Създаване на уютна атмосфера.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800" alt="Покривна конструкция">
+                    <span class="portfolio-year">2022</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Покривни конструкции</div>
+                    <h3>Покрив на хотел в Банско</h3>
+                    <p>Изграждане на нова дървена покривна конструкция от смърч за бутиков хотел.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800" alt="Баня с дърво">
+                    <span class="portfolio-year">2022</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Реставрация</div>
+                    <h3>СПА зона с дървена облицовка</h3>
+                    <p>Облицовка на СПА зона с термично обработен ясен. Водоустойчиво и елегантно решение.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800" alt="Работилница мебели">
+                    <span class="portfolio-year">2021</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Мебели по поръчка</div>
+                    <h3>Трапезна маса от орех</h3>
+                    <p>Масивна трапезна маса от орех за 12 души с уникален ръчно изработен ръб на живо дърво.</p>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <div class="portfolio-img">
+                    <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800" alt="Ресторант интериор">
+                    <span class="portfolio-year">2021</span>
+                </div>
+                <div class="portfolio-body">
+                    <div class="category">Интериорен дизайн</div>
+                    <h3>Ресторант "Старият дъб"</h3>
+                    <p>Пълен интериорен проект на ресторант в Стария град - мебели, облицовки и декорации от дъб.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Имате проект? Нека го обсъдим!</h2>
+        <p>Споделете вашата идея и ние ще я превърнем в реалност</p>
+        <a href="contact.html" class="btn">Свържете се с нас</a>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">Начало</a>
+            <a href="about.html">За нас</a>
+            <a href="services.html">Услуги</a>
+            <a href="portfolio.html">Портфолио</a>
+            <a href="contact.html">Контакти</a>
+        </div>
+        <p>&copy; 2026 Дървен Майстор. Всички права запазени. гр. Пловдив</p>
+    </footer>
+</body>
+</html>
